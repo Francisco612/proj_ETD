@@ -1,0 +1,44 @@
+flowchart TD
+    subgraph SOURCES["📦 Fontes de Dados"]
+        S1["🎵 Spotify Web API\nPlaylists · Tracks · Audio Features · Artistas"]
+        S2["📁 MPD Dataset\n1M Playlists — Dataset de Maior Volume"]
+        S3["🎼 MusicBrainz API\nGéneros · Metadados de Artistas"]
+    end
+
+    subgraph EXTRACT["⚙️ Semana 1 — Extract"]
+        E1["extract_spotify_api.py\nFeatured Playlists → Tracks → Audio Features → Artists"]
+        E2["extract_mpd.py\nChunk-by-chunk · Slices JSON · Amostra"]
+        E3["extract_musicbrainz.py\nLookup por artist_name · Rate-limited 1 req/s"]
+    end
+
+    subgraph RAW["🗃️ data/raw/"]
+        R1["spotify_api/\nplaylists · tracks · audio_features · artists"]
+        R2["mpd_dataset/\nstats · sample · top_artists"]
+        R3["musicbrainz/\nartists_enriched"]
+    end
+
+    subgraph ORCHESTRATION["🔄 Orquestração (Prefect)"]
+        O1["pipeline_week1.py\nFlow: Extract → Inventory Report"]
+    end
+
+    subgraph NEXT["📋 Semanas 2-4"]
+        W2["Semana 2\nTransform"]
+        W3["Semana 3\nLoad"]
+        W4["Semana 4\nVisualize"]
+    end
+
+    S1 --> E1
+    S2 --> E2
+    S3 --> E3
+
+    E1 --> R1
+    E2 --> R2
+    E3 --> R3
+
+    R1 --> O1
+    R2 --> O1
+    R3 --> O1
+
+    O1 --> W2
+    W2 --> W3
+    W3 --> W4

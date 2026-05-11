@@ -1,0 +1,42 @@
+project:
+  name: "Music & Entertainment ETL"
+  version: "1.0.0"
+  domain: "music_entertainment"
+
+paths:
+  raw_data: "data/raw"
+  staging_data: "data/staging"
+  logs: "logs"
+  docs: "docs"
+
+spotify:
+  base_url: "https://api.spotify.com/v1"
+  playlist_limit: 50
+  tracks_limit: 100
+  audio_features_batch_size: 100
+  markets:
+    - "PT"
+    - "US"
+    - "GB"
+
+extraction:
+  mpd:
+    chunk_size: 10000
+    max_slices: 10    # total slices no MPD (1000 no dataset completo). Começa com 10 para testar.
+  api:
+    retry_attempts: 3
+    retry_delay_seconds: 2
+    rate_limit_sleep_seconds: 1
+
+data_sources:
+  - name: "Spotify Web API"
+    type: "api"
+    description: "Playlists, tracks, artistas e audio features"
+  - name: "Spotify Million Playlist Dataset (MPD)"
+    type: "static_dataset"
+    description: "Dataset estático de 1M playlists - dataset de maior volume"
+    url: "https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge"
+  - name: "MusicBrainz API"
+    type: "complementary_api"
+    description: "Metadados de artistas, géneros e discografias"
+    url: "https://musicbrainz.org/doc/MusicBrainz_API"
