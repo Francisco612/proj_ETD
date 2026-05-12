@@ -1,10 +1,8 @@
-"""
-Módulo de autenticação com a Spotify Web API.
-Usa Client Credentials Flow (sem necessidade de login do utilizador).
-"""
+# spotify_auth.py
 
 import spotipy
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyOAuth
+
 from src.utils.config import get_spotify_credentials
 from src.utils.logger import get_logger
 
@@ -12,37 +10,56 @@ logger = get_logger("spotify_auth")
 
 
 def get_spotify_client() -> spotipy.Spotify:
-    """
-    Cria e retorna um cliente autenticado da Spotify Web API.
-
-    Returns:
-        spotipy.Spotify: cliente autenticado pronto a usar.
-
-    Raises:
-        EnvironmentError: se as credenciais não estiverem configuradas.
-        spotipy.SpotifyException: se a autenticação falhar.
-    """
     client_id, client_secret = get_spotify_credentials()
 
-    logger.info("A autenticar com a Spotify Web API...")
+    # IMPORTANTE:
+    # Este URI tem de ser exatamente igual ao configurado
+    # na Spotify Developer Dashboard
+    redirect_uri = "http://127.0.0.1:8080/callback"
 
-    auth_manager = SpotifyClientCredentials(
+    # Scopes necessários
+    scope = (
+        "playlist-read-private "
+        "playlist-read-collaborative "
+        "user-read-private "
+        "user-library-read"
+    )
+
+    logger.info("A iniciar fluxo de autorização OAuth (Spotify)...")
+
+    auth_manager = SpotifyOAuth(
         client_id=client_id,
         client_secret=client_secret,
+        redirect_uri=redirect_uri,
+        scope=scope,
+        open_browser=True,
+        cache_path=".spotify_cache",
+        show_dialog=False
     )
 
     sp = spotipy.Spotify(
         auth_manager=auth_manager,
-        requests_timeout=10,
-        retries=3,
+        requests_timeout=15,
+        retries=5
     )
 
-    # Teste rápido para confirmar que a autenticação funcionou
     try:
-        sp.search(q="test", limit=1, type="track")
-        logger.success("Autenticação com Spotify bem-sucedida!")
+        user = sp.current_user()
+
+        logger.success(
+            f"Autenticação OAuth bem-sucedida! "
+            f"User: {user.get('display_name', 'Unknown')}"
+        )
+
     except Exception as e:
-        logger.error(f"Falha na autenticação: {e}")
+        logger.error(f"Erro na autenticação Spotify: {e}")
+        logger.info(
+            "Verifica:\n"
+            "- Redirect URI\n"
+            "- Client ID / Secret\n"
+            "- Permissões OAuth\n"
+            "- Ligação internet"
+        )
         raise
 
     return sp

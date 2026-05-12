@@ -1,13 +1,13 @@
+# extract_spotify_api.py
+
 """
 Extração de dados da Spotify Web API.
-
-Extrai:
-  - Playlists featured (destaque do Spotify)
-  - Tracks de cada playlist
-  - Audio features das tracks
-  - Metadados de artistas
-
-Todos os dados são guardados em formato JSON raw, sem modificações.
+Versão robusta contra:
+- 403 Forbidden
+- playlists inválidas
+- playlists privadas
+- market restrictions
+- playlists sem tracks
 """
 
 import json
@@ -23,331 +23,506 @@ from src.utils.logger import get_logger
 
 logger = get_logger("extract_spotify")
 
+# Apenas playlists oficiais / confiáveis
+KNOWN_PLAYLIST_QUERIES = {
+    "pop": ["Today's Top Hits", "Hot Hits Portugal"],
+    "hiphop": ["RapCaviar", "Most Necessary"],
+    "rock": ["Rock Classics", "Rock This"],
+    "electronic": ["mint", "Electronic Circus"],
+    "jazz": ["Jazz Classics", "Jazz Vibes"],
+    "classical": ["Classical Essentials", "Classical New Releases"],
+    "rnb": ["Are & Be", "R&B Hits"],
+    "latin": ["Viva Latino", "Latin Pop Hits"],
+    "chill": ["Chill Hits", "Lo-Fi Beats"],
+    "indie": ["Indie Pop", "Indie Rock"],
+    "workout": ["Beast Mode", "Power Workout"],
+    "focus": ["Deep Focus", "Intense Studying"],
+    "charts_pt": ["Top 50 - Portugal"],
+    "charts_us": ["Top 50 - USA"],
+    "viral": ["Viral 50 - Global"],
+}
+
+# Search terms mais limpos
+SEARCH_TERMS = [
+    "spotify editorial",
+    "viral hits",
+    "new music friday",
+    "official pop",
+    "official hip hop",
+]
+
 
 def _save_raw(data: dict | list, folder: Path, filename: str) -> Path:
-    """Guarda dados brutos em JSON com timestamp no nome."""
+
     folder.mkdir(parents=True, exist_ok=True)
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
     path = folder / f"{filename}_{timestamp}.json"
+
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    logger.debug(f"Guardado: {path} ({path.stat().st_size / 1024:.1f} KB)")
+
+    logger.debug(
+        f"Guardado: {path} "
+        f"({path.stat().st_size / 1024:.1f} KB)"
+    )
+
     return path
 
 
-def extract_featured_playlists(sp: spotipy.Spotify, config: dict) -> list[dict]:
-    """
-    Extrai playlists em destaque do Spotify para os mercados configurados.
+def extract_playlists(sp: spotipy.Spotify, config: dict) -> list[dict]:
 
-    Args:
-        sp: cliente Spotify autenticado
-        config: dicionário de configuração
-
-    Returns:
-        Lista de dicionários com metadados de cada playlist
-    """
-    limit = config["spotify"]["playlist_limit"]
-    pages = int(config.get("extraction", {}).get("api", {}).get("retry_attempts", 3))
-    markets = config["spotify"]["markets"]
     raw_dir = Path(config["paths"]["raw_data"]) / "spotify_api" / "playlists"
 
     all_playlists = []
+    seen_ids = set()
 
-    for market in markets:
-        logger.info(f"A extrair playlists featured para mercado: {market}")
-        offset = 0
+    logger.info("A localizar playlists oficiais por nome...")
 
-        for page in range(5):  # 5 páginas * 50 = 250 playlists por mercado
+    # ==========================================================
+    # 1. PLAYLISTS OFICIAIS
+    # ==========================================================
+
+    for genre, queries in KNOWN_PLAYLIST_QUERIES.items():
+
+        for query in queries:
+
             try:
-                result = sp.featured_playlists(
-                    country=market,
-                    limit=limit,
-                    offset=offset,
+                search_res = sp.search(
+                    q=query,
+                    type="playlist",
+                    limit=5
                 )
-                items = result.get("playlists", {}).get("items", [])
-                if not items:
-                    logger.info(f"Sem mais playlists para {market} na página {page}")
+
+                items = search_res.get("playlists", {}).get("items", [])
+
+                found = False
+
+                for item in items:
+
+                    if not item:
+                        continue
+
+                    owner_id = item.get("owner", {}).get("id", "")
+                    pid = item.get("id")
+
+                    # ignorar playlists sem owner válido
+                    if not owner_id:
+                        continue
+
+                    if not pid or pid in seen_ids:
+                        continue
+
+                    full_playlist = sp.playlist(
+                        pid,
+                        fields=(
+                            "id,"
+                            "name,"
+                            "description,"
+                            "owner,"
+                            "followers,"
+                            "tracks.total,"
+                            "public"
+                        ),
+                        market="from_token"
+                    )
+
+                    full_playlist["_category"] = genre
+                    full_playlist["_source"] = "official_lookup"
+                    full_playlist["_extracted_at"] = datetime.now().isoformat()
+
+                    all_playlists.append(full_playlist)
+                    seen_ids.add(pid)
+
+                    logger.info(
+                        f"  [{genre}] "
+                        f"'{full_playlist.get('name')}': OK"
+                    )
+
+                    found = True
                     break
 
-                # Adiciona metadata de extração
-                for item in items:
-                    if item:
-                        item["_extracted_market"] = market
-                        item["_extracted_at"] = datetime.now().isoformat()
-                        all_playlists.append(item)
+                if not found:
+                    logger.warning(
+                        f"  [{genre}] Nenhuma playlist oficial encontrada"
+                    )
 
-                logger.info(f"  Página {page + 1}: {len(items)} playlists ({market})")
-                offset += limit
-                time.sleep(config["extraction"]["api"]["rate_limit_sleep_seconds"])
+                time.sleep(0.2)
 
-            except spotipy.SpotifyException as e:
-                logger.error(f"Erro ao extrair playlists ({market}, offset={offset}): {e}")
-                break
+            except Exception as e:
+                logger.warning(
+                    f"  [{genre}] Erro ao localizar '{query}': {e}"
+                )
 
-    # Guarda os dados brutos
-    saved_path = _save_raw(all_playlists, raw_dir, "featured_playlists")
-    logger.success(f"Total de playlists extraídas: {len(all_playlists)} -> {saved_path}")
+    # ==========================================================
+    # 2. PLAYLIST SEARCH EXTRA
+    # ==========================================================
+
+    logger.info(
+        f"A pesquisar por {len(SEARCH_TERMS)} termos..."
+    )
+
+    for term in SEARCH_TERMS:
+
+        try:
+            result = sp.search(
+                q=term,
+                type="playlist",
+                limit=10
+            )
+
+            items = result.get("playlists", {}).get("items", [])
+
+            added = 0
+
+            for item in items:
+
+                if not item:
+                    continue
+
+                pid = item.get("id")
+
+                if not pid or pid in seen_ids:
+                    continue
+
+                owner_id = item.get("owner", {}).get("id", "")
+                public = item.get("public", False)
+
+                # Ignorar privadas
+                if public is False:
+                    continue
+
+                # Ignorar owners vazios
+                if owner_id in ["", None]:
+                    continue
+
+                # Ignorar playlists pequenas
+                total_tracks = item.get("tracks", {}).get("total", 0)
+
+                if total_tracks < 5:
+                    continue
+
+                item["_category"] = "search"
+                item["_search_term"] = term
+                item["_source"] = "search"
+                item["_extracted_at"] = datetime.now().isoformat()
+
+                all_playlists.append(item)
+
+                seen_ids.add(pid)
+
+                added += 1
+
+            logger.info(
+                f"  ['{term}']: {added} playlists novas"
+            )
+
+            time.sleep(
+                config["extraction"]["api"]["rate_limit_sleep_seconds"]
+            )
+
+        except Exception as e:
+            logger.error(f"  Erro na pesquisa '{term}': {e}")
+
+    saved_path = _save_raw(all_playlists, raw_dir, "playlists")
+
+    logger.success(
+        f"Total de playlists extraídas: "
+        f"{len(all_playlists)} -> {saved_path}"
+    )
+
     return all_playlists
 
 
 def extract_playlist_tracks(
-    sp: spotipy.Spotify,
-    playlists: list[dict],
-    config: dict,
-    max_playlists: int = 50,
+        sp: spotipy.Spotify,
+        playlists: list[dict],
+        config: dict,
+        max_playlists: int = 50
 ) -> list[dict]:
-    """
-    Extrai as tracks de cada playlist.
 
-    Args:
-        sp: cliente Spotify autenticado
-        playlists: lista de playlists obtida de extract_featured_playlists
-        config: dicionário de configuração
-        max_playlists: limite de playlists a processar (para não exceder rate limits)
-
-    Returns:
-        Lista de dicionários com info de cada track + playlist de origem
-    """
     limit = config["spotify"]["tracks_limit"]
-    raw_dir = Path(config["paths"]["raw_data"]) / "spotify_api" / "tracks"
-    all_tracks = []
-    processed = 0
 
-    playlists_to_process = [p for p in playlists if p is not None][:max_playlists]
-    logger.info(f"A extrair tracks de {len(playlists_to_process)} playlists...")
+    raw_dir = (
+            Path(config["paths"]["raw_data"])
+            / "spotify_api"
+            / "tracks"
+    )
+
+    all_tracks = []
+
+    playlists_to_process = playlists[:max_playlists]
+
+    logger.info(
+        f"A extrair tracks de "
+        f"{len(playlists_to_process)} playlists..."
+    )
 
     for playlist in playlists_to_process:
-        playlist_id = playlist.get("id")
-        playlist_name = playlist.get("name", "Unknown")
 
-        if not playlist_id:
+        pid = playlist.get("id")
+        pname = playlist.get("name", "Unknown")
+
+        if not pid:
             continue
 
+        total_extracted = 0
+
         try:
+
             offset = 0
-            playlist_tracks = []
 
             while True:
-                result = sp.playlist_tracks(
-                    playlist_id,
-                    limit=limit,
+
+                result = sp.playlist_items(
+                    pid,
                     offset=offset,
-                    fields="items(track(id,name,duration_ms,explicit,popularity,preview_url,track_number,"
-                           "artists(id,name),album(id,name,release_date,total_tracks))),next",
+                    limit=limit,
+                    market="from_token",
+                    additional_types=("track",)
                 )
 
                 items = result.get("items", [])
+
                 if not items:
                     break
 
                 for item in items:
-                    track = item.get("track")
-                    if track and track.get("id"):
-                        track["_playlist_id"] = playlist_id
-                        track["_playlist_name"] = playlist_name
-                        track["_extracted_at"] = datetime.now().isoformat()
-                        playlist_tracks.append(track)
+
+                    track_data = item.get("track")
+
+                    # Ignorar episódios/podcasts/etc
+                    if not track_data:
+                        continue
+
+                    if track_data.get("type") != "track":
+                        continue
+
+                    if not track_data.get("id"):
+                        continue
+
+                    track_data["_playlist_id"] = pid
+                    track_data["_playlist_name"] = pname
+                    track_data["_extracted_at"] = (
+                        datetime.now().isoformat()
+                    )
+
+                    all_tracks.append(track_data)
+
+                    total_extracted += 1
 
                 if not result.get("next"):
                     break
+
                 offset += limit
-                time.sleep(0.1)
 
-            all_tracks.extend(playlist_tracks)
-            processed += 1
+                time.sleep(0.2)
 
-            if processed % 10 == 0:
-                logger.info(f"  Processadas {processed}/{len(playlists_to_process)} playlists | Total tracks: {len(all_tracks)}")
-
-            time.sleep(config["extraction"]["api"]["rate_limit_sleep_seconds"])
+            logger.info(
+                f"  OK: '{pname}' "
+                f"({total_extracted} tracks)"
+            )
 
         except spotipy.SpotifyException as e:
-            logger.error(f"Erro ao extrair tracks de '{playlist_name}' ({playlist_id}): {e}")
+
+            logger.error(
+                f"  Playlist bloqueada: '{pname}' | "
+                f"status={e.http_status} | "
+                f"msg={e.msg}"
+            )
+
             continue
 
-    saved_path = _save_raw(all_tracks, raw_dir, "playlist_tracks")
-    logger.success(f"Total de tracks extraídas: {len(all_tracks)} -> {saved_path}")
+        except Exception as e:
+
+            logger.error(
+                f"  Erro inesperado em '{pname}': {e}"
+            )
+
+            continue
+
+    _save_raw(all_tracks, raw_dir, "playlist_tracks")
+
+    logger.success(
+        f"Tracks extraídas: {len(all_tracks)}"
+    )
+
     return all_tracks
 
 
 def extract_audio_features(
-    sp: spotipy.Spotify,
-    tracks: list[dict],
-    config: dict,
+        sp: spotipy.Spotify,
+        tracks: list[dict],
+        config: dict
 ) -> list[dict]:
-    """
-    Extrai audio features para todas as tracks (em batches de 100).
 
-    Audio features incluem: danceability, energy, key, loudness,
-    speechiness, acousticness, instrumentalness, liveness, valence, tempo, etc.
-
-    Args:
-        sp: cliente Spotify autenticado
-        tracks: lista de tracks obtida de extract_playlist_tracks
-        config: dicionário de configuração
-
-    Returns:
-        Lista de dicionários com audio features por track_id
-    """
     batch_size = config["spotify"]["audio_features_batch_size"]
-    raw_dir = Path(config["paths"]["raw_data"]) / "spotify_api" / "audio_features"
 
-    # Deduplica track IDs
-    track_ids = list({t["id"] for t in tracks if t.get("id")})
-    logger.info(f"A extrair audio features para {len(track_ids)} tracks únicas (batches de {batch_size})...")
+    raw_dir = (
+            Path(config["paths"]["raw_data"])
+            / "spotify_api"
+            / "audio_features"
+    )
+
+    track_ids = list({
+        t["id"]
+        for t in tracks
+        if t.get("id")
+    })
+
+    logger.info(
+        f"A extrair audio features para "
+        f"{len(track_ids)} tracks únicas..."
+    )
 
     all_features = []
-    errors = 0
 
     for i in range(0, len(track_ids), batch_size):
-        batch = track_ids[i : i + batch_size]
-        batch_num = i // batch_size + 1
-        total_batches = (len(track_ids) + batch_size - 1) // batch_size
+
+        batch = track_ids[i:i + batch_size]
 
         try:
+
             features = sp.audio_features(batch)
-            valid = [f for f in features if f is not None]
-            all_features.extend(valid)
 
-            logger.info(f"  Batch {batch_num}/{total_batches}: {len(valid)}/{len(batch)} features obtidas")
-            time.sleep(config["extraction"]["api"]["rate_limit_sleep_seconds"])
+            all_features.extend([
+                f for f in features
+                if f is not None
+            ])
 
-        except spotipy.SpotifyException as e:
-            logger.error(f"Erro no batch {batch_num}: {e}")
-            errors += 1
-            time.sleep(config["extraction"]["api"]["retry_delay_seconds"])
+            time.sleep(
+                config["extraction"]["api"]["rate_limit_sleep_seconds"]
+            )
 
-    saved_path = _save_raw(all_features, raw_dir, "audio_features")
-    logger.success(
-        f"Audio features extraídas: {len(all_features)} tracks "
-        f"({errors} batches com erro) -> {saved_path}"
-    )
+        except Exception as e:
+            logger.error(f"Erro features: {e}")
+
+    _save_raw(all_features, raw_dir, "audio_features")
+
     return all_features
 
 
 def extract_artists(
-    sp: spotipy.Spotify,
-    tracks: list[dict],
-    config: dict,
-    batch_size: int = 50,
+        sp: spotipy.Spotify,
+        tracks: list[dict],
+        config: dict,
+        batch_size: int = 50
 ) -> list[dict]:
-    """
-    Extrai metadados de artistas únicos a partir das tracks extraídas.
 
-    Args:
-        sp: cliente Spotify autenticado
-        tracks: lista de tracks
-        config: dicionário de configuração
-        batch_size: número de artistas por chamada (max 50)
+    raw_dir = (
+            Path(config["paths"]["raw_data"])
+            / "spotify_api"
+            / "artists"
+    )
 
-    Returns:
-        Lista de dicionários com metadados de cada artista
-    """
-    raw_dir = Path(config["paths"]["raw_data"]) / "spotify_api" / "artists"
-
-    # Recolhe todos os artist_ids únicos
     artist_ids = set()
+
     for track in tracks:
+
         for artist in track.get("artists", []):
+
             if artist.get("id"):
                 artist_ids.add(artist["id"])
 
     artist_ids = list(artist_ids)
-    logger.info(f"A extrair metadados de {len(artist_ids)} artistas únicos...")
+
+    logger.info(
+        f"A extrair metadados de "
+        f"{len(artist_ids)} artistas únicos..."
+    )
 
     all_artists = []
-    errors = 0
 
     for i in range(0, len(artist_ids), batch_size):
-        batch = artist_ids[i : i + batch_size]
-        batch_num = i // batch_size + 1
-        total_batches = (len(artist_ids) + batch_size - 1) // batch_size
+
+        batch = artist_ids[i:i + batch_size]
 
         try:
+
             result = sp.artists(batch)
-            artists = result.get("artists", [])
-            valid = [a for a in artists if a is not None]
-            all_artists.extend(valid)
 
-            if batch_num % 5 == 0 or batch_num == total_batches:
-                logger.info(f"  Batch {batch_num}/{total_batches}: {len(valid)} artistas")
-            time.sleep(config["extraction"]["api"]["rate_limit_sleep_seconds"])
+            all_artists.extend(
+                result.get("artists", [])
+            )
 
-        except spotipy.SpotifyException as e:
-            logger.error(f"Erro no batch de artistas {batch_num}: {e}")
-            errors += 1
-            time.sleep(config["extraction"]["api"]["retry_delay_seconds"])
+            time.sleep(
+                config["extraction"]["api"]["rate_limit_sleep_seconds"]
+            )
 
-    saved_path = _save_raw(all_artists, raw_dir, "artists")
-    logger.success(
-        f"Artistas extraídos: {len(all_artists)} "
-        f"({errors} erros) -> {saved_path}"
-    )
+        except Exception as e:
+            logger.error(f"Erro artistas: {e}")
+
+    _save_raw(all_artists, raw_dir, "artists")
+
     return all_artists
 
 
 def run_spotify_extraction(max_playlists: int = 50) -> dict:
-    """
-    Executa a extração completa da Spotify Web API.
 
-    Sequência:
-      1. Autentica com a API
-      2. Extrai playlists featured
-      3. Extrai tracks dessas playlists
-      4. Extrai audio features das tracks
-      5. Extrai metadados dos artistas
-
-    Args:
-        max_playlists: número máximo de playlists a processar
-
-    Returns:
-        Dicionário com resumo da extração
-    """
     logger.info("=" * 60)
     logger.info("INÍCIO DA EXTRAÇÃO - SPOTIFY WEB API")
     logger.info("=" * 60)
+
     start_time = datetime.now()
 
     config = load_config()
+
     sp = get_spotify_client()
 
-    # 1. Playlists
-    playlists = extract_featured_playlists(sp, config)
+    playlists = extract_playlists(sp, config)
 
-    # 2. Tracks
-    tracks = extract_playlist_tracks(sp, playlists, config, max_playlists=max_playlists)
+    tracks = extract_playlist_tracks(
+        sp,
+        playlists,
+        config,
+        max_playlists=max_playlists
+    )
 
-    # 3. Audio Features
-    features = extract_audio_features(sp, tracks, config)
+    features = extract_audio_features(
+        sp,
+        tracks,
+        config
+    )
 
-    # 4. Artistas
-    artists = extract_artists(sp, tracks, config)
+    artists = extract_artists(
+        sp,
+        tracks,
+        config
+    )
 
-    elapsed = (datetime.now() - start_time).total_seconds()
+    elapsed = (
+        datetime.now() - start_time
+    ).total_seconds()
 
     summary = {
         "extracted_at": start_time.isoformat(),
         "duration_seconds": round(elapsed, 1),
         "playlists_count": len(playlists),
         "tracks_count": len(tracks),
-        "unique_tracks": len({t["id"] for t in tracks if t.get("id")}),
+        "unique_tracks": len({
+            t["id"]
+            for t in tracks
+            if t.get("id")
+        }),
         "audio_features_count": len(features),
         "artists_count": len(artists),
     }
 
-    # Guarda resumo
-    summary_path = Path(config["paths"]["raw_data"]) / "spotify_api" / "extraction_summary.json"
+    summary_path = (
+            Path(config["paths"]["raw_data"])
+            / "spotify_api"
+            / "extraction_summary.json"
+    )
+
     with open(summary_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
 
     logger.info("=" * 60)
-    logger.success(f"EXTRAÇÃO CONCLUÍDA em {elapsed:.1f}s")
-    logger.info(f"  Playlists:      {summary['playlists_count']}")
-    logger.info(f"  Tracks:         {summary['tracks_count']}")
-    logger.info(f"  Tracks únicas:  {summary['unique_tracks']}")
-    logger.info(f"  Audio features: {summary['audio_features_count']}")
-    logger.info(f"  Artistas:       {summary['artists_count']}")
-    logger.info("=" * 60)
+
+    logger.success(
+        f"EXTRAÇÃO CONCLUÍDA em {elapsed:.1f}s"
+    )
 
     return summary
 
