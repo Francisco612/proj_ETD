@@ -166,21 +166,9 @@ def extract_artists_from_musicbrainz(
 
 
 def run_musicbrainz_extraction(
-    spotify_artists_file: Path | None = None,
-    max_artists: int = 100,
+        spotify_artists_file: Path | None = None,
+        max_artists: int = 100,
 ) -> dict:
-    """
-    Ponto de entrada da extração MusicBrainz.
-
-    Lê os artistas do Spotify já extraídos e enriquece com MusicBrainz.
-
-    Args:
-        spotify_artists_file: ficheiro JSON de artistas do Spotify
-        max_artists: máximo de artistas a processar (cuidado com rate limits)
-
-    Returns:
-        Resumo da extração
-    """
     logger.info("=" * 60)
     logger.info("INÍCIO DA EXTRAÇÃO - MUSICBRAINZ")
     logger.info("=" * 60)
@@ -188,24 +176,35 @@ def run_musicbrainz_extraction(
     config = load_config()
     artists_dir = Path(config["paths"]["raw_data"]) / "spotify_api" / "artists"
 
-    # Encontra o ficheiro de artistas mais recente se não foi especificado
     if spotify_artists_file is None:
-        artist_files = sorted(artists_dir.glob("artists_*.json"))
-        if not artist_files:
-            logger.error(
-                "Nenhum ficheiro de artistas do Spotify encontrado.\n"
-                "Executa primeiro: python run_extraction.py --source spotify"
-            )
-            return {"error": "Ficheiro de artistas não encontrado"}
-        spotify_artists_file = artist_files[-1]
+        # 1. Procura ambos os padrões
+        patterns = ["user_top_artists_*.json", "artists_*.json"]
+        all_files = []
+        for p in patterns:
+            all_files.extend(list(artists_dir.glob(p)))
+
+        # 2. FILTRO CRÍTICO: Ordena por tempo mas só aceita ficheiros que NÃO estejam vazios
+        valid_files = sorted(
+            [f for f in all_files if f.stat().st_size > 0],
+            key=lambda x: x.stat().st_mtime
+        )
+
+        if not valid_files:
+            logger.error("Nenhum ficheiro de artistas com conteúdo encontrado.")
+            return {"error": "Sem dados de entrada válidos"}
+
+        spotify_artists_file = valid_files[-1]
 
     logger.info(f"A usar artistas de: {spotify_artists_file}")
 
-    with open(spotify_artists_file, "r", encoding="utf-8") as f:
-        spotify_artists = json.load(f)
+    try:
+        with open(spotify_artists_file, "r", encoding="utf-8") as f:
+            spotify_artists = json.load(f)
+    except json.JSONDecodeError:
+        logger.error(f"Ficheiro corrompido: {spotify_artists_file}")
+        return {"error": "JSON corrompido"}
 
     artist_names = [a.get("name") for a in spotify_artists if a.get("name")]
-    # Remove duplicados mantendo ordem
     seen = set()
     unique_names = []
     for name in artist_names:
@@ -215,13 +214,22 @@ def run_musicbrainz_extraction(
 
     logger.info(f"Artistas únicos do Spotify: {len(unique_names)}")
 
+    # 3. EVITAR DIVISÃO POR ZERO
+    if not unique_names:
+        logger.warning("Lista de artistas única está vazia. A abortar MusicBrainz.")
+        return {"musicbrainz_matched": 0, "match_rate_pct": 0.0}
+
     enriched = extract_artists_from_musicbrainz(unique_names, max_artists=max_artists)
+
+    # Cálculo seguro da percentagem
+    total_attempted = min(len(unique_names), max_artists)
+    match_rate = round(len(enriched) / total_attempted * 100, 1) if total_attempted > 0 else 0.0
 
     return {
         "source_file": str(spotify_artists_file),
         "spotify_artists_count": len(unique_names),
         "musicbrainz_matched": len(enriched),
-        "match_rate_pct": round(len(enriched) / min(len(unique_names), max_artists) * 100, 1),
+        "match_rate_pct": match_rate,
     }
 
 
