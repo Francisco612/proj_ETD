@@ -74,7 +74,7 @@ pip install -r requirements.txt
 4. Preenche:
    - App name: `MusicETL`
    - App description: `Student ETL project`
-   - Redirect URI: `http://localhost:8080` (obrigatório, mas não usado)
+   - Redirect URI: `http://127.0.0.1:8080` (obrigatório, mas não usado)
    - APIs: seleciona **Web API**
 5. Aceita os termos e clica **Save**
 6. Na página da app, clica em **Settings** para ver o `Client ID` e `Client Secret`

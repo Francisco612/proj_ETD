@@ -17,13 +17,15 @@ def get_spotify_client() -> spotipy.Spotify:
     # na Spotify Developer Dashboard
     redirect_uri = "http://127.0.0.1:8080/callback"
 
-    # Scopes necessários
-    scope = (
-        "playlist-read-private "
-        "playlist-read-collaborative "
-        "user-read-private "
-        "user-library-read"
-    )
+    # Forma recomendada e mais segura
+    scopes_list = [
+        "playlist-read-private",
+        "playlist-read-collaborative",
+        "user-read-private",
+        "user-library-read",
+        "user-top-read"
+    ]
+    scope = " ".join(scopes_list)
 
     logger.info("A iniciar fluxo de autorização OAuth (Spotify)...")
 
