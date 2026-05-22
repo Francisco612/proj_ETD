@@ -22,15 +22,48 @@ logger = get_logger("extract_musicbrainz")
 
 MUSICBRAINZ_BASE_URL = "https://musicbrainz.org/ws/2"
 HEADERS = {
-    "User-Agent": "MusicETLProject/1.0 (student-project; contact@example.com)",
+    "User-Agent": "MusicDataEnricherProject/1.0.4 (francisco.projectETD@gmail.com)",
     "Accept": "application/json",
 }
-RATE_LIMIT_SLEEP = 1.1  # segundos entre requests (respeita o limite de 1/s)
+RATE_LIMIT_SLEEP = 1.2  # Tempo mínimo em segundos entre pedidos à API
+LAST_REQUEST_TIME = 0.0  # Guarda o timestamp do último pedido global
+
+session = requests.Session()
+session.headers.update(HEADERS)
+
+def _make_request(url: str, params: dict) -> dict | None:
+    """
+    Função auxiliar que centraliza as chamadas HTTP e garante
+    o cumprimento estrito do Rate Limit através do relógio do sistema.
+    """
+    global LAST_REQUEST_TIME
+
+    # Calcula quanto tempo passou desde o último pedido
+    now = time.time()
+    elapsed = now - LAST_REQUEST_TIME
+
+    # Se passou menos tempo do que o limite, espera a diferença
+    if elapsed < RATE_LIMIT_SLEEP:
+        time.sleep(RATE_LIMIT_SLEEP - elapsed)
+
+    try:
+        response = session.get(url, params=params, timeout=15)
+        # Atualiza o timestamp imediatamente após receber a resposta
+        LAST_REQUEST_TIME = time.time()
+
+        response.raise_for_status()
+        return response.json()
+
+    except requests.RequestException as e:
+        logger.error(f"Erro na requisição para {url}: {e}")
+        # Garante que o relógio atualiza mesmo em caso de erro para proteger o IP
+        LAST_REQUEST_TIME = time.time()
+        return None
 
 
 def search_artist(artist_name: str) -> dict | None:
     """
-    Procura um artista na MusicBrainz pelo nome.
+    Procura um artista na MusicBrainz pelo nome usando sintaxe Lucene.
 
     Args:
         artist_name: nome do artista
@@ -45,17 +78,11 @@ def search_artist(artist_name: str) -> dict | None:
         "fmt": "json",
     }
 
-    try:
-        response = requests.get(url, params=params, headers=HEADERS, timeout=10)
-        response.raise_for_status()
-        data = response.json()
-
+    data = _make_request(url, params)
+    if data:
         artists = data.get("artists", [])
         return artists[0] if artists else None
-
-    except requests.RequestException as e:
-        logger.error(f"Erro ao pesquisar artista '{artist_name}': {e}")
-        return None
+    return None
 
 
 def get_artist_details(mbid: str) -> dict | None:
@@ -74,25 +101,18 @@ def get_artist_details(mbid: str) -> dict | None:
         "fmt": "json",
     }
 
-    try:
-        response = requests.get(url, params=params, headers=HEADERS, timeout=10)
-        response.raise_for_status()
-        return response.json()
-
-    except requests.RequestException as e:
-        logger.error(f"Erro ao obter detalhes do artista MBID={mbid}: {e}")
-        return None
+    return _make_request(url, params)
 
 
 def extract_artists_from_musicbrainz(
-    artist_names: list[str],
-    max_artists: int = 100,
+        artist_names: list[str],
+        max_artists: int = 100,
 ) -> list[dict]:
     """
     Extrai metadados de artistas da MusicBrainz.
 
     Usa os nomes de artistas obtidos do Spotify para fazer lookup na MusicBrainz.
-    Respeita o rate limit de 1 request/segundo.
+    Garante alto desempenho respeitando o relógio global de 1 req/segundo.
 
     Args:
         artist_names: lista de nomes de artistas
@@ -112,9 +132,8 @@ def extract_artists_from_musicbrainz(
     not_found = []
 
     for i, name in enumerate(artists_to_process):
-        # Search
+        # 1. Pesquisa o artista para obter o MBID
         search_result = search_artist(name)
-        time.sleep(RATE_LIMIT_SLEEP)
 
         if not search_result:
             not_found.append(name)
@@ -125,9 +144,8 @@ def extract_artists_from_musicbrainz(
             not_found.append(name)
             continue
 
-        # Get details
+        # 2. Vai buscar os detalhes avançados (Gêneros, Tags) usando o MBID
         details = get_artist_details(mbid)
-        time.sleep(RATE_LIMIT_SLEEP)
 
         if details:
             enriched = {
@@ -148,7 +166,7 @@ def extract_artists_from_musicbrainz(
         if (i + 1) % 10 == 0:
             logger.info(f"  Progresso: {i + 1}/{len(artists_to_process)} artistas")
 
-    # Guarda resultados
+    # Guarda resultados no diretório RAW
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_path = raw_dir / f"artists_musicbrainz_{timestamp}.json"
     with open(output_path, "w", encoding="utf-8") as f:
@@ -177,13 +195,13 @@ def run_musicbrainz_extraction(
     artists_dir = Path(config["paths"]["raw_data"]) / "spotify_api" / "artists"
 
     if spotify_artists_file is None:
-        # 1. Procura ambos os padrões
+        # 1. Procura ambos os padrões de arquivos do Spotify
         patterns = ["user_top_artists_*.json", "artists_*.json"]
         all_files = []
         for p in patterns:
             all_files.extend(list(artists_dir.glob(p)))
 
-        # 2. FILTRO CRÍTICO: Ordena por tempo mas só aceita ficheiros que NÃO estejam vazios
+        # 2. Filtra arquivos vazios e ordena pelo arquivo mais recente
         valid_files = sorted(
             [f for f in all_files if f.stat().st_size > 0],
             key=lambda x: x.stat().st_mtime
@@ -204,6 +222,7 @@ def run_musicbrainz_extraction(
         logger.error(f"Ficheiro corrompido: {spotify_artists_file}")
         return {"error": "JSON corrompido"}
 
+    # Extrai nomes e remove duplicados mantendo a ordem
     artist_names = [a.get("name") for a in spotify_artists if a.get("name")]
     seen = set()
     unique_names = []
@@ -214,14 +233,14 @@ def run_musicbrainz_extraction(
 
     logger.info(f"Artistas únicos do Spotify: {len(unique_names)}")
 
-    # 3. EVITAR DIVISÃO POR ZERO
+    # 3. Evita divisão por zero se a lista estiver vazia
     if not unique_names:
         logger.warning("Lista de artistas única está vazia. A abortar MusicBrainz.")
         return {"musicbrainz_matched": 0, "match_rate_pct": 0.0}
 
     enriched = extract_artists_from_musicbrainz(unique_names, max_artists=max_artists)
 
-    # Cálculo seguro da percentagem
+    # Cálculo seguro da percentagem de sucesso
     total_attempted = min(len(unique_names), max_artists)
     match_rate = round(len(enriched) / total_attempted * 100, 1) if total_attempted > 0 else 0.0
 
@@ -234,4 +253,5 @@ def run_musicbrainz_extraction(
 
 
 if __name__ == "__main__":
+    # Executa o script processando até 50 artistas para teste preliminar
     run_musicbrainz_extraction(max_artists=50)
