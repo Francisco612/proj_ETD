@@ -1,0 +1,44 @@
+{
+  "check_timestamp": "2026-05-22T14:46:51.253077",
+  "source_file": "fact_playlists_tracks_staging_20260522_143947.csv",
+  "total_records_analyzed": 3324938,
+  "validations": {
+    "missing_values": {
+      "status": "WARNING",
+      "details": {
+        "playlist_id": 0,
+        "playlist_name": 10,
+        "playlist_followers": 0,
+        "track_pos": 0,
+        "track_name": 0,
+        "track_uri": 0,
+        "artist_name": 0,
+        "artist_uri": 0,
+        "album_name": 0,
+        "track_duration_min": 0,
+        "mbid": 54,
+        "mb_name": 54,
+        "mb_type": 54,
+        "mb_country": 54,
+        "mb_area": 413351,
+        "mb_begin_date": 413359,
+        "mb_end_date": 3137904,
+        "mb_genres": 54,
+        "mb_tags": 54,
+        "_extracted_at": 54
+      }
+    },
+    "duplicate_rows": {
+      "status": "PASS",
+      "count": 0
+    },
+    "musicbrainz_match_quality": {
+      "status": "INFO",
+      "unmatched_unique_artists_count": 3
+    },
+    "plausible_duration_check": {
+      "status": "PASS",
+      "abnormal_tracks_detected": 0
+    }
+  }
+}
