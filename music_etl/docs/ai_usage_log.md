@@ -9,7 +9,7 @@
 
 ### Entrada 1 — Estrutura inicial do projeto
 
-**Data:** [preencher data da semana passada]
+**Data:** [18/05/2026]
 **Ferramenta:** Claude (Anthropic)
 
 **Intenção / Objetivo:**
