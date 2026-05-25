@@ -1,7 +1,8 @@
 # 🎵 Music & Entertainment ETL Pipeline
 
 Pipeline modular de ETL para análise de dados musicais.
-Fontes: Spotify Web API · Spotify Million Playlist Dataset · MusicBrainz API
+
+**Fontes:** Spotify Web API · Spotify Million Playlist Dataset · MusicBrainz API
 
 ---
 
@@ -10,28 +11,34 @@ Fontes: Spotify Web API · Spotify Million Playlist Dataset · MusicBrainz API
 ```
 music_etl/
 ├── config/
-│   └── settings.yaml          # Configuração centralizada
+│   └── settings.yaml               # Configuração centralizada
 ├── data/
-│   ├── raw/                   # Dados brutos (não versionados)
-│   │   ├── spotify_api/       # Extraídos da Spotify Web API
+│   ├── raw/                        # Dados brutos (não versionados) — Camada Bronze
+│   │   ├── spotify_api/            # Extraídos da Spotify Web API
 │   │   │   ├── playlists/
 │   │   │   ├── tracks/
 │   │   │   ├── audio_features/
 │   │   │   └── artists/
-│   │   ├── mpd_dataset/       # Spotify Million Playlist Dataset
-│   │   └── musicbrainz/       # MusicBrainz API
-│   └── staging/               # Dados transformados (Semana 2)
+│   │   ├── mpd_dataset/            # Spotify Million Playlist Dataset
+│   │   └── musicbrainz/            # MusicBrainz API
+│   ├── staging/                    # Dados integrados e limpos (Semana 2) — Camada Silver
+│   ├── gold/                       # Tabelas agregadas analíticas (Semana 2) — Camada Gold
+│   └── metrics_quality/            # Relatórios de auditoria de Data Quality
 ├── docs/
 │   └── data_sources_inventory.md
-├── logs/                      # Logs de execução (não versionados)
+├── logs/                           # Logs de execução (não versionados)
 ├── orchestration/
-│   └── pipeline_week1.py      # Flow Prefect — Semana 1
+│   └── pipeline_week1.py           # Flow Prefect — Semana 1
 ├── src/
 │   ├── extract/
 │   │   ├── spotify_auth.py
 │   │   ├── extract_spotify_api.py
 │   │   ├── extract_mpd.py
 │   │   └── extract_musicbrainz.py
+│   ├── transform/
+│   │   ├── transform_staging.py        # Integração e limpeza (Silver)
+│   │   ├── transform_quality.py        # Validação e Data Quality
+│   │   └── transform_aggregations.py   # Agregações analíticas (Gold)
 │   └── utils/
 │       ├── config.py
 │       └── logger.py
@@ -40,154 +47,97 @@ music_etl/
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
-└── run_extraction.py          # Script principal
+└── run_extraction.py               # Script principal de extração
 ```
 
 ---
 
 ## Instalação e Configuração
 
-### 1. Pré-requisitos
+### Requisitos Prévios
 
-- Python 3.11+
-- PyCharm (ou outro editor)
-- Git
+- Python 3.10 ou superior
+- Ambiente Virtual (`venv`) ativo
+- Ficheiro comprimido do MPD guardado localmente (ex: `C:\Users\...\Downloads\spotify_million_playlist_dataset.zip`)
 
-### 2. Clonar e criar ambiente virtual
+### Instalação de Dependências
 
 ```bash
-# No terminal do PyCharm (ou Windows PowerShell na pasta do projeto):
-python -m venv venv
-venv\Scripts\activate          # Windows
-# source venv/bin/activate     # macOS/Linux
-
 pip install -r requirements.txt
+# Garanta que possui o pandas instalado para a fase de transformação:
+pip install pandas
 ```
-
-### 3. Configurar credenciais Spotify
-
-**Passo a passo para criar a app no Spotify:**
-
-1. Vai a https://developer.spotify.com/dashboard
-2. Inicia sessão com a tua conta Spotify (ou cria uma)
-3. Clica em **"Create app"**
-4. Preenche:
-   - App name: `MusicETL`
-   - App description: `Student ETL project`
-   - Redirect URI: `http://127.0.0.1:8080` (obrigatório, mas não usado)
-   - APIs: seleciona **Web API**
-5. Aceita os termos e clica **Save**
-6. Na página da app, clica em **Settings** para ver o `Client ID` e `Client Secret`
-
-Depois:
-
-```bash
-# Copia o ficheiro de exemplo
-copy .env.example .env          # Windows
-# cp .env.example .env          # macOS/Linux
-
-# Abre o .env e preenche as credenciais:
-# SPOTIFY_CLIENT_ID=xxxxx
-# SPOTIFY_CLIENT_SECRET=xxxxx
-```
-
-> ⚠️ **NUNCA** commites o ficheiro `.env` — está protegido pelo `.gitignore`
-
-### 4. Download do MPD (Spotify Million Playlist Dataset)
-
-O MPD é o dataset de maior volume do projeto (~5GB comprimido).
-
-1. Vai a https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge
-2. Cria conta na AIcrowd e aceita os termos
-3. Faz download dos ficheiros `.zip`
-4. Extrai para a pasta: `data/raw/mpd_dataset/`
-
-A estrutura esperada:
-```
-data/raw/mpd_dataset/
-├── mpd.slice.0-999.json
-├── mpd.slice.1000-1999.json
-├── ...
-└── mpd.slice.999000-999999.json
-```
-
-> ℹ️ Enquanto não tens o MPD, podes correr o projeto só com as outras fontes.
-> O script deteta automaticamente se o MPD está presente.
 
 ---
 
-## Execução
+## Como Executar o Pipeline
 
-### Extração completa (todas as fontes)
+### Semana 1 — Extração (Extract)
 
 ```bash
+# Executar o fluxo completo de extração
 python run_extraction.py
+
+# Executar apenas o módulo específico do MPD (via streaming do ZIP)
+python -m src.extract.extract_mpd
 ```
 
-### Extração por fonte
+### Semana 2 — Transformação (Transform)
+
+A fase de transformação processa o volume massivo de dados (mais de 3.3 milhões de linhas), higieniza o schema e gera as tabelas analíticas. Os scripts devem ser executados na seguinte ordem:
 
 ```bash
-# Só Spotify API
-python run_extraction.py --source spotify
+# 1. Executar a limpeza e o Left Join entre as fontes (Gera a Camada Silver)
+python -m src.transform.transform_staging
 
-# Só MPD (precisa do dataset descarregado)
-python run_extraction.py --source mpd
+# 2. Correr os testes de Data Quality (Gera relatórios em data/metrics_quality/)
+python -m src.transform.transform_quality
 
-# Só MusicBrainz (precisa do Spotify ter corrido antes)
-python run_extraction.py --source mb
-```
-
-### Com Prefect (orquestração)
-
-```bash
-python orchestration/pipeline_week1.py
-
-# Para ver o dashboard Prefect (opcional):
-prefect server start
-# Abre http://localhost:4200
-```
-
-### Testes
-
-```bash
-pytest tests/test_week1_extraction.py -v
+# 3. Gerar as tabelas resumidas de métricas (Gera a Camada Gold)
+python -m src.transform.transform_aggregations
 ```
 
 ---
 
-## Perguntas Analíticas
+## Perguntas Analíticas (Respondidas na Camada Gold)
 
-1. **Como atributos de áudio (danceability, energy, valence) se relacionam com popularidade?**
-2. **Existem perfis de playlists com "assinaturas sonoras" distintas?**
-3. **Que padrões temporais ou de género musical explicam a aceitação do público?**
-4. **Há diferenças entre mercados (PT vs US vs GB) nas playlists em destaque?**
+**Como atributos de áudio (danceability, energy, valence) se relacionam com popularidade?**
+
+**Existem perfis de playlists com "assinaturas sonoras" distintas?**
+
+**Que padrões temporais ou de género musical explicam a aceitação do público?**
+> Status: Respondido na tabela `dim_genre_ranking_gold_*.csv`, indicando o domínio absoluto do Hip Hop, Pop e Trap.
+
+**Há diferenças entre mercados (PT vs US vs GB) nas playlists em destaque?**
+> Status: Mapeado na tabela `dim_country_distribution_gold_*.csv`, revelando a dominância de consumo concentrada nos eixos US e CA.
 
 ---
 
 ## Fontes de Dados
 
 | Fonte | Tipo | Uso |
-|-------|------|-----|
+|---|---|---|
 | Spotify Web API | API | Playlists, tracks, audio features, artistas |
-| Spotify MPD | Dataset estático (maior volume) | 1M playlists para análise de padrões |
-| MusicBrainz API | API complementar | Géneros e metadados de artistas |
+| Spotify MPD | Dataset estático (.zip pesado) | 1M playlists processadas via streaming de memória (Chunks) |
+| MusicBrainz API | API complementar | Géneros, países e metadados biográficos de artistas |
 
-Cruzamento: `track_uri` (MPD ↔ Spotify) · `artist_name` (Spotify ↔ MusicBrainz)
+**Estratégia de Cruzamento:** `artist_name` (Spotify MPD ↔ MusicBrainz) unificados através de um Left Join explícito na Camada Silver.
 
 ---
 
 ## Uso de IA
 
-Este projeto usa IA de forma transparente e documentada.
-Ver: `docs/ai_usage_log.md` (criado ao longo do projeto)
+Este projeto usa IA de forma transparente, disciplinada e em conformidade com a abordagem Spec-Driven Development.
+
+Toda a atividade, engenharia de prompts, validações críticas e decisões humanas estão documentadas em: `data/ai_usage_log.md`
 
 ---
 
 ## Estado do Projeto
 
-| Semana | Módulo | Estado |
-|--------|--------|--------|
-| 1 | Extração | ✅ Em curso |
-| 2 | Transformação | ⏳ Pendente |
-| 3 | Carregamento | ⏳ Pendente |
-| 4 | Visualização | ⏳ Pendente |
+| Semana | Módulo | Status | Entregáveis Principais |
+|---|---|---|---|
+| Semana 1 | Extração (Extract) | ✅ 100% Concluído | Ficheiros RAW (Bronze), Autenticação API, Integração Prefect |
+| Semana 2 | Transformação (Transform) | ✅ 100% Concluído | Camada Silver (3.3M linhas), Camada Gold (Agregações), Relatório DQ |
+| Semana 3 | Carregamento (Load) | 📅 Próximo Passo | Persistência em Base de Dados Local (SQLite/DuckDB) |
+| Semana 4 | Visualização (Visualization) | ⏳ Em espera | Dashboard Analítico e Storytelling dos Dados |****
