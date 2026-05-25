@@ -1,0 +1,80 @@
+2026-05-11 22:59:13 | INFO     | __main__:main:61 - ============================================================
+2026-05-11 22:59:13 | INFO     | __main__:main:62 - MUSIC ETL — PIPELINE DE EXTRAÇÃO (SEMANA 1)
+2026-05-11 22:59:13 | INFO     | __main__:main:63 - Fonte: SPOTIFY
+2026-05-11 22:59:13 | INFO     | __main__:main:64 - ============================================================
+2026-05-11 22:59:14 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:306 - ============================================================
+2026-05-11 22:59:14 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:307 - INÍCIO DA EXTRAÇÃO - SPOTIFY WEB API
+2026-05-11 22:59:14 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:308 - ============================================================
+2026-05-11 22:59:14 | INFO     | src.extract.spotify_auth:get_spotify_client:27 - A autenticar com a Spotify Web API...
+2026-05-11 22:59:15 | SUCCESS  | src.extract.spotify_auth:get_spotify_client:43 - Autenticação com Spotify bem-sucedida!
+2026-05-11 22:59:15 | INFO     | src.extract.extract_spotify_api:extract_featured_playlists:57 - A extrair playlists featured para mercado: PT
+2026-05-11 22:59:15 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (PT, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=PT&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 22:59:15 | INFO     | src.extract.extract_spotify_api:extract_featured_playlists:57 - A extrair playlists featured para mercado: US
+2026-05-11 22:59:16 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (US, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:extract_featured_playlists:57 - A extrair playlists featured para mercado: GB
+2026-05-11 22:59:16 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (GB, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=GB&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 22:59:16 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\playlists\featured_playlists_20260511_225916.json (0.0 KB)
+2026-05-11 22:59:16 | SUCCESS  | src.extract.extract_spotify_api:extract_featured_playlists:89 - Total de playlists extraídas: 0 -> data\raw\spotify_api\playlists\featured_playlists_20260511_225916.json
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:extract_playlist_tracks:117 - A extrair tracks de 0 playlists...
+2026-05-11 22:59:16 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\tracks\playlist_tracks_20260511_225916.json (0.0 KB)
+2026-05-11 22:59:16 | SUCCESS  | src.extract.extract_spotify_api:extract_playlist_tracks:169 - Total de tracks extraídas: 0 -> data\raw\spotify_api\tracks\playlist_tracks_20260511_225916.json
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:extract_audio_features:197 - A extrair audio features para 0 tracks únicas (batches de 100)...
+2026-05-11 22:59:16 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\audio_features\audio_features_20260511_225916.json (0.0 KB)
+2026-05-11 22:59:16 | SUCCESS  | src.extract.extract_spotify_api:extract_audio_features:221 - Audio features extraídas: 0 tracks (0 batches com erro) -> data\raw\spotify_api\audio_features\audio_features_20260511_225916.json
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:extract_artists:256 - A extrair metadados de 0 artistas únicos...
+2026-05-11 22:59:16 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\artists\artists_20260511_225916.json (0.0 KB)
+2026-05-11 22:59:16 | SUCCESS  | src.extract.extract_spotify_api:extract_artists:282 - Artistas extraídos: 0 (0 erros) -> data\raw\spotify_api\artists\artists_20260511_225916.json
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:343 - ============================================================
+2026-05-11 22:59:16 | SUCCESS  | src.extract.extract_spotify_api:run_spotify_extraction:344 - EXTRAÇÃO CONCLUÍDA em 1.1s
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:345 -   Playlists:      0
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:346 -   Tracks:         0
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:347 -   Tracks únicas:  0
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:348 -   Audio features: 0
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:349 -   Artistas:       0
+2026-05-11 22:59:16 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:350 - ============================================================
+2026-05-11 22:59:16 | INFO     | __main__:main:110 - ============================================================
+2026-05-11 22:59:16 | SUCCESS  | __main__:main:111 - EXTRAÇÃO COMPLETA em 2.9s — data\raw\full_extraction_summary.json
+2026-05-11 22:59:16 | INFO     | __main__:main:112 - ============================================================
+2026-05-11 23:07:29 | INFO     | __main__:main:61 - ============================================================
+2026-05-11 23:07:29 | INFO     | __main__:main:62 - MUSIC ETL — PIPELINE DE EXTRAÇÃO (SEMANA 1)
+2026-05-11 23:07:29 | INFO     | __main__:main:63 - Fonte: SPOTIFY
+2026-05-11 23:07:29 | INFO     | __main__:main:64 - ============================================================
+2026-05-11 23:07:30 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:306 - ============================================================
+2026-05-11 23:07:30 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:307 - INÍCIO DA EXTRAÇÃO - SPOTIFY WEB API
+2026-05-11 23:07:30 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:308 - ============================================================
+2026-05-11 23:07:30 | INFO     | src.extract.spotify_auth:get_spotify_client:27 - A autenticar com a Spotify Web API...
+2026-05-11 23:07:31 | SUCCESS  | src.extract.spotify_auth:get_spotify_client:43 - Autenticação com Spotify bem-sucedida!
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:extract_featured_playlists:57 - A extrair playlists featured para mercado: PT
+2026-05-11 23:07:31 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (PT, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=PT&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:extract_featured_playlists:57 - A extrair playlists featured para mercado: US
+2026-05-11 23:07:31 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (US, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:extract_featured_playlists:57 - A extrair playlists featured para mercado: GB
+2026-05-11 23:07:31 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (GB, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=GB&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 23:07:31 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\playlists\featured_playlists_20260511_230731.json (0.0 KB)
+2026-05-11 23:07:31 | SUCCESS  | src.extract.extract_spotify_api:extract_featured_playlists:89 - Total de playlists extraídas: 0 -> data\raw\spotify_api\playlists\featured_playlists_20260511_230731.json
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:extract_playlist_tracks:117 - A extrair tracks de 0 playlists...
+2026-05-11 23:07:31 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\tracks\playlist_tracks_20260511_230731.json (0.0 KB)
+2026-05-11 23:07:31 | SUCCESS  | src.extract.extract_spotify_api:extract_playlist_tracks:169 - Total de tracks extraídas: 0 -> data\raw\spotify_api\tracks\playlist_tracks_20260511_230731.json
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:extract_audio_features:197 - A extrair audio features para 0 tracks únicas (batches de 100)...
+2026-05-11 23:07:31 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\audio_features\audio_features_20260511_230731.json (0.0 KB)
+2026-05-11 23:07:31 | SUCCESS  | src.extract.extract_spotify_api:extract_audio_features:221 - Audio features extraídas: 0 tracks (0 batches com erro) -> data\raw\spotify_api\audio_features\audio_features_20260511_230731.json
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:extract_artists:256 - A extrair metadados de 0 artistas únicos...
+2026-05-11 23:07:31 | DEBUG    | src.extract.extract_spotify_api:_save_raw:34 - Guardado: data\raw\spotify_api\artists\artists_20260511_230731.json (0.0 KB)
+2026-05-11 23:07:31 | SUCCESS  | src.extract.extract_spotify_api:extract_artists:282 - Artistas extraídos: 0 (0 erros) -> data\raw\spotify_api\artists\artists_20260511_230731.json
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:343 - ============================================================
+2026-05-11 23:07:31 | SUCCESS  | src.extract.extract_spotify_api:run_spotify_extraction:344 - EXTRAÇÃO CONCLUÍDA em 0.9s
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:345 -   Playlists:      0
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:346 -   Tracks:         0
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:347 -   Tracks únicas:  0
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:348 -   Audio features: 0
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:349 -   Artistas:       0
+2026-05-11 23:07:31 | INFO     | src.extract.extract_spotify_api:run_spotify_extraction:350 - ============================================================
+2026-05-11 23:07:31 | INFO     | __main__:main:110 - ============================================================
+2026-05-11 23:07:31 | SUCCESS  | __main__:main:111 - EXTRAÇÃO COMPLETA em 1.5s — data\raw\full_extraction_summary.json
+2026-05-11 23:07:31 | INFO     | __main__:main:112 - ============================================================

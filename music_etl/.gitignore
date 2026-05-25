@@ -8,75 +8,24 @@
 # =============================================================
 # Dados — não versionar (demasiado grandes / sensíveis)
 # =============================================================
-data/raw/
-data/staging/
-data/curated/
+# Bloqueia o conteúdo das pastas, mas permite ler a raiz delas
+data/raw/*
+data/staging/*
+data/gold/*
+data/metrics_quality/*
+
+# Bloqueia extensões globais de dados
 *.json.gz
 *.parquet
 *.csv
-!data/.gitkeep
+*.json
+
+# REGRAS DE EXCEÇÃO: Forçar o Git a guardar os ficheiros .gitkeep
+!.gitkeep
 !data/raw/.gitkeep
 !data/staging/.gitkeep
+!data/gold/.gitkeep
+!data/metrics_quality/.gitkeep
 
 # Excepção: ficheiros de amostra pequenos para testes
-data/raw/sample/
-
-# =============================================================
-# Logs
-# =============================================================
-logs/
-*.log
-
-# =============================================================
-# Python
-# =============================================================
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-.Python
-*.egg-info/
-dist/
-build/
-.eggs/
-*.egg
-.pytest_cache/
-.coverage
-htmlcov/
-.mypy_cache/
-.ruff_cache/
-
-# =============================================================
-# Ambientes virtuais
-# =============================================================
-venv/
-.venv/
-env/
-ENV/
-
-# =============================================================
-# IDEs
-# =============================================================
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# =============================================================
-# OS
-# =============================================================
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# =============================================================
-# Jupyter
-# =============================================================
-.ipynb_checkpoints/
-*.ipynb
-
-# =============================================================
-# Prefect
-# =============================================================
-.prefect/
+!data/raw/sample/

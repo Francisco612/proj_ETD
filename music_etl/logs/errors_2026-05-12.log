@@ -1,0 +1,177 @@
+2026-05-12 13:37:34 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [pop]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/pop/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:34 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [hiphop]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/hiphop/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:34 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [rock]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/rock/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:34 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [electronic]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/electronic/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:34 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [jazz]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/jazz/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [classical]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/classical/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [rnb]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/rnb/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [latin]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/latin/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [metal]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/metal/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [indie_alt]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/indie_alt/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [soul]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/soul/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [dance]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/dance/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [chill]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/chill/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [workout]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/workout/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:83 -   [focus]: erro http status: 403, code:-1 - https://api.spotify.com/v1/browse/categories/focus/playlists?limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-12 13:37:35 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:109 -   Erro na pesquisa 'top hits 2024': http status: 400, code:-1 - https://api.spotify.com/v1/search?q=top+hits+2024&limit=20&offset=0&type=playlist:
+ Invalid limit, reason: None
+2026-05-12 13:37:36 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:109 -   Erro na pesquisa 'best of 2023': http status: 400, code:-1 - https://api.spotify.com/v1/search?q=best+of+2023&limit=20&offset=0&type=playlist:
+ Invalid limit, reason: None
+2026-05-12 13:37:36 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:109 -   Erro na pesquisa 'viral hits': http status: 400, code:-1 - https://api.spotify.com/v1/search?q=viral+hits&limit=20&offset=0&type=playlist:
+ Invalid limit, reason: None
+2026-05-12 13:37:36 | ERROR    | src.extract.extract_spotify_api:extract_category_playlists:109 -   Erro na pesquisa 'trending music': http status: 400, code:-1 - https://api.spotify.com/v1/search?q=trending+music&limit=20&offset=0&type=playlist:
+ Invalid limit, reason: None
+2026-05-12 13:40:02 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Top Hits of 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/774kUuKDzLa8ieaSmi8IfS/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:02 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Top Hits of 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/6unJBM7ZGitZYFJKkO0e4P/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:02 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Top Hits of 2022': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/56r5qRUv3jSxADdmBkhcz7/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:02 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Best of 2026 🔥 Most Popular Hits 2025 Hits': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1Cgey68pUlQGsCPI2wJuxr/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:02 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'RFM 2026 | TOP 40 (12/05/26) - Rádio RFM - Só Grandes Músicas - Música Portuguesa': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1JwfqHHHmnz3iruVaZDxLq/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:02 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Uber 2026 ⭐ Top Hits 🎧 Pop Nacional e Internacional 🚕 Top Playlist': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/5ncHuP1HcYZp6HAePWaCd3/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Academia 2026 - só as melhores para treinar 💪- melhores hits para  - as mais tocadas nas academias.': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/3TvBM6NykhdyO2jbkoHL2q/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Best Songs Of 90’s - All Hits From 1990-2000 Best On Spotify 🏆': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/0Z5qNVqtgaERPHUwWheBoA/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'BEST HITS 2026 🔥 Popular Songs 🎵 Top Music Hits 🎵 ': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/5KJDMJe9EJ7QRz8FG2MIpI/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:40:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'MEGA HITS FM 2026 🇵🇹 Portugal Top 50': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/0ricqsTobzaG4tjzdogu1B/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Top Hits of 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/774kUuKDzLa8ieaSmi8IfS/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Top Hits of 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/6unJBM7ZGitZYFJKkO0e4P/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Top Hits of 2022': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/56r5qRUv3jSxADdmBkhcz7/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Best of 2026 🔥 Most Popular Hits 2025 Hits': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1Cgey68pUlQGsCPI2wJuxr/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'RFM 2026 | TOP 40 (12/05/26) - Rádio RFM - Só Grandes Músicas - Música Portuguesa': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1JwfqHHHmnz3iruVaZDxLq/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Uber 2026 ⭐ Top Hits 🎧 Pop Nacional e Internacional 🚕 Top Playlist': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/5ncHuP1HcYZp6HAePWaCd3/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Academia 2026 - só as melhores para treinar 💪- melhores hits para  - as mais tocadas nas academias.': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/3TvBM6NykhdyO2jbkoHL2q/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'Best Songs Of 90’s - All Hits From 1990-2000 Best On Spotify 🏆': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/0Z5qNVqtgaERPHUwWheBoA/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'BEST HITS 2026 🔥 Popular Songs 🎵 Top Music Hits 🎵 ': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/5KJDMJe9EJ7QRz8FG2MIpI/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 13:45:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:221 - Erro ao extrair tracks de 'MEGA HITS FM 2026 🇵🇹 Portugal Top 50': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/0ricqsTobzaG4tjzdogu1B/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cpreview_url%2Ctrack_number%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Top Hits of 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/774kUuKDzLa8ieaSmi8IfS/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Best of 2026 🔥 Most Popular Hits 2025 Hits': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1Cgey68pUlQGsCPI2wJuxr/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Top Hits of 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/6unJBM7ZGitZYFJKkO0e4P/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Top Hits of 2022': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/56r5qRUv3jSxADdmBkhcz7/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de '2010-2020 Top Hits (2010’s) ': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/24DKKckhcPEXACdqlYTvdh/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'My Hits 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/0EkyVFAIhXidCEHK4gA0K8/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Uber 2026 ⭐ Top Hits 🎧 Pop Nacional e Internacional 🚕 Top Playlist': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/5ncHuP1HcYZp6HAePWaCd3/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:57 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Summer Vibes Mix 2026 | Summer Hits | Best Summer Songs  | Top Músicas de Verão | Pop Internacional': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/0LGNwySI1YUJxSw5cyBuq8/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:58 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de '2024 HITS 🎸 Best Viral Hits 2024 & Top Songs 2024 - Best of 2024 Music : POP Songs HITS 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/4HOlG8KlmZk1mMpkMeNtR6/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:06:58 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:167 - Erro ao extrair tracks de 'Best TikTok Song 2020 - 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/3s9FSZqdRUIy02A5i9Vl8w/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cduration_ms%2Cexplicit%2Cpopularity%2Cartists%28id%2Cname%29%2Calbum%28id%2Cname%2Crelease_date%2Ctotal_tracks%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:14:32 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/774kUuKDzLa8ieaSmi8IfS/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:14:32 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Best of 2026 🔥 Most Popular Hits 2025 Hits': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1Cgey68pUlQGsCPI2wJuxr/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:14:32 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/6unJBM7ZGitZYFJKkO0e4P/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:14:32 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2022': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/56r5qRUv3jSxADdmBkhcz7/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:14:32 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler '2010-2020 Top Hits (2010’s) ': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/24DKKckhcPEXACdqlYTvdh/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:23:29 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/774kUuKDzLa8ieaSmi8IfS/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:23:29 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Best of 2026 🔥 Most Popular Hits 2025 Hits': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1Cgey68pUlQGsCPI2wJuxr/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:23:29 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2022': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/56r5qRUv3jSxADdmBkhcz7/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:23:29 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/6unJBM7ZGitZYFJKkO0e4P/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:23:30 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler '2010-2020 Top Hits (2010’s) ': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/24DKKckhcPEXACdqlYTvdh/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:29:26 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2024': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/774kUuKDzLa8ieaSmi8IfS/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:29:26 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Best of 2026 🔥 Most Popular Hits 2025 Hits': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/1Cgey68pUlQGsCPI2wJuxr/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:29:26 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2022': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/56r5qRUv3jSxADdmBkhcz7/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:29:26 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler 'Top Hits of 2023': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/6unJBM7ZGitZYFJKkO0e4P/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:29:26 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:159 -   Não consegui ler '2010-2020 Top Hits (2010’s) ': http status: 403, code:-1 - https://api.spotify.com/v1/playlists/24DKKckhcPEXACdqlYTvdh/tracks?limit=100&offset=0&fields=items%28track%28id%2Cname%2Cartists%28id%2Cname%29%29%29%2Cnext&additional_types=track:
+ Forbidden, reason: None
+2026-05-12 14:33:30 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:166 -   Bloqueio em 'Top Hits of 2024': status 403. A saltar...
+2026-05-12 14:33:30 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:166 -   Bloqueio em 'Best of 2026 🔥 Most Popular Hits 2025 Hits': status 403. A saltar...
+2026-05-12 14:33:30 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:166 -   Bloqueio em 'Top Hits of 2022': status 403. A saltar...
+2026-05-12 14:33:30 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:166 -   Bloqueio em 'Top Hits of 2023': status 403. A saltar...
+2026-05-12 14:33:31 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:166 -   Bloqueio em '2010-2020 Top Hits (2010’s) ': status 403. A saltar...
+2026-05-12 14:47:00 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'HITS 2026 - Today's Top Songs' | status=403 | msg=https://api.spotify.com/v1/playlists/5iwkYfnHAGMEFLiHFFGnP4/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:47:00 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'Hot Hits Portugal' | status=403 | msg=https://api.spotify.com/v1/playlists/5O0WtS9QUrelNkBoh8ty3s/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:47:00 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'Rap Caviar but it's actually good' | status=403 | msg=https://api.spotify.com/v1/playlists/36jMjt77enSYMSr4uoYe9J/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:47:00 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'MOST NECESSARY.' | status=403 | msg=https://api.spotify.com/v1/playlists/6wt1oWGn8TfIvYgsDpLvci/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:47:00 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'Top 100 Most Popular Rock Songs' | status=403 | msg=https://api.spotify.com/v1/playlists/7DgPQwzEoUVfQYBiMLER9Z/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:52:17 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [pop] Erro playlist 37i9dQZF1DXcBWIGoYBM5M: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DXcBWIGoYBM5M?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:18 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [hiphop] Erro playlist 37i9dQZF1DX0XUsuxWHRQd: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX0XUsuxWHRQd?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:18 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [rock] Erro playlist 37i9dQZF1DWXRqgorJj26U: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DWXRqgorJj26U?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:19 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [electronic] Erro playlist 37i9dQZF1DX4dyzvuaRJ0n: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX4dyzvuaRJ0n?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:19 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [jazz] Erro playlist 37i9dQZF1DXbITWG1ZJKYt: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DXbITWG1ZJKYt?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:20 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [classical] Erro playlist 37i9dQZF1DWWEJlAGA9gs0: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DWWEJlAGA9gs0?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:20 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [rnb] Erro playlist 37i9dQZF1DX4SBhb3fqCJd: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX4SBhb3fqCJd?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:20 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [latin] Erro playlist 37i9dQZF1DX10zKzsJ2jva: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX10zKzsJ2jva?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:21 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [chill] Erro playlist 37i9dQZF1DX4WYpdgoIcn6: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX4WYpdgoIcn6?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:21 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [indie] Erro playlist 37i9dQZF1DX2Nc3B70tvx0: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX2Nc3B70tvx0?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:22 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [workout] Erro playlist 37i9dQZF1DX76Wlfdnj7AP: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DX76Wlfdnj7AP?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:52:22 | ERROR    | src.extract.extract_spotify_api:extract_playlists:158 -   [focus] Erro playlist 37i9dQZF1DWZeKCadgRdKQ: http status: 404, code:-1 - https://api.spotify.com/v1/playlists/37i9dQZF1DWZeKCadgRdKQ?market=from_token&additional_types=track:
+ Resource not found, reason: None
+2026-05-12 14:54:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'HITS 2026 - Today's Top Songs' | status=403 | msg=https://api.spotify.com/v1/playlists/5iwkYfnHAGMEFLiHFFGnP4/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:54:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'Hot Hits Portugal' | status=403 | msg=https://api.spotify.com/v1/playlists/5O0WtS9QUrelNkBoh8ty3s/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:54:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'Rap Caviar but it's actually good' | status=403 | msg=https://api.spotify.com/v1/playlists/36jMjt77enSYMSr4uoYe9J/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:54:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'MOST NECESSARY.' | status=403 | msg=https://api.spotify.com/v1/playlists/6wt1oWGn8TfIvYgsDpLvci/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden
+2026-05-12 14:54:03 | ERROR    | src.extract.extract_spotify_api:extract_playlist_tracks:329 -   Playlist bloqueada: 'Top 100 Most Popular Rock Songs' | status=403 | msg=https://api.spotify.com/v1/playlists/7DgPQwzEoUVfQYBiMLER9Z/tracks?limit=100&offset=0&market=from_token&additional_types=track:
+ Forbidden

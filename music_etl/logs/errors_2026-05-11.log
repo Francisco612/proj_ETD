@@ -1,0 +1,12 @@
+2026-05-11 22:59:15 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (PT, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=PT&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 22:59:16 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (US, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 22:59:16 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (GB, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=GB&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 23:07:31 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (PT, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=PT&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 23:07:31 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (US, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=US&limit=50&offset=0:
+ Forbidden, reason: None
+2026-05-11 23:07:31 | ERROR    | src.extract.extract_spotify_api:extract_featured_playlists:84 - Erro ao extrair playlists (GB, offset=0): http status: 403, code:-1 - https://api.spotify.com/v1/browse/featured-playlists?country=GB&limit=50&offset=0:
+ Forbidden, reason: None

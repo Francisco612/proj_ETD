@@ -1,0 +1,206 @@
+2026-05-22 14:12:14 | INFO     | __main__:run_musicbrainz_extraction:188 - ============================================================
+2026-05-22 14:12:14 | INFO     | __main__:run_musicbrainz_extraction:189 - INÍCIO DA EXTRAÇÃO - MUSICBRAINZ
+2026-05-22 14:12:14 | INFO     | __main__:run_musicbrainz_extraction:190 - ============================================================
+2026-05-22 14:12:14 | INFO     | __main__:run_musicbrainz_extraction:214 - A usar artistas de: data\raw\spotify_api\artists\user_top_artists_20260513_140342.json
+2026-05-22 14:12:14 | INFO     | __main__:run_musicbrainz_extraction:232 - Artistas únicos do Spotify: 67
+2026-05-22 14:12:14 | INFO     | __main__:extract_artists_from_musicbrainz:127 - A extrair 50 artistas da MusicBrainz...
+2026-05-22 14:12:16 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist/23998f9a-fd11-40bc-88a4-cf9e3cbd5d78: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist/23998f9a-fd11-40bc-88a4-cf9e3cbd5d78?inc=tags%2Bgenres%2Bratings&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:17 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22LON3R+JOHNY%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:18 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Drake%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:20 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Black+Eyed+Peas%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:21 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Pitbull%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:22 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Sean+Paul%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:23 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Travis+Scott%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:25 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%2221+Savage%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:26 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Flo+Rida%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:27 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Kanye+West%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:28 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Metro+Boomin%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:29 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Gunna%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:31 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Tory+Lanez%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:32 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Don+Toliver%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:33 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Kendrick+Lamar%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:34 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Plutonio%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:36 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22El+De+Las+R%27s%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:37 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Chico+da+Tina%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:38 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Justin+Timberlake%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:39 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Fantasm%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:40 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Dillaz%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:42 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Papillon%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:43 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Joint+One%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:44 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Lhast%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:45 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Regula%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:47 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Zara+G%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:48 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Future%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:49 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22bapcat%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:50 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22ATJ%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:52 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Slow+J%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:53 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22VSP+AST%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:54 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22King+Bigs%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:55 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Espama+Trincana%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:56 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Paulo+Gonzo%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:58 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22ProfJam%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:12:59 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Yung+Juse%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:00 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22DJ+Arana%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:01 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22T-Rex%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:03 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%2250+Cent%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:04 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Calvin+Harris%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:05 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22The+Weeknd%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:06 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Van+Zee%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:08 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Veigh%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:09 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Capit%C3%A3o+Fausto%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:10 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Bad+Bunny%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:11 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Matu%C3%AA%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:12 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Grupo+Menos+%C3%89+Mais%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:14 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22GROGNation%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:15 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22Maroon+5%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:16 | ERROR    | __main__:_make_request:56 - Erro na requisição para https://musicbrainz.org/ws/2/artist: HTTPSConnectionPool(host='musicbrainz.org', port=443): Max retries exceeded with url: /ws/2/artist?query=artist%3A%22DJ+Japa+NK%22&limit=1&fmt=json (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))
+2026-05-22 14:13:16 | SUCCESS  | __main__:extract_artists_from_musicbrainz:173 - MusicBrainz: 0 artistas encontrados | 49 não encontrados -> data\raw\musicbrainz\artists_musicbrainz_20260522_141316.json
+2026-05-22 14:13:16 | DEBUG    | __main__:extract_artists_from_musicbrainz:179 - Artistas não encontrados: ['LON3R JOHNY', 'Drake', 'Black Eyed Peas', 'Pitbull', 'Sean Paul', 'Travis Scott', '21 Savage', 'Flo Rida', 'Kanye West', 'Metro Boomin']...
+2026-05-22 14:17:16 | INFO     | __main__:run_musicbrainz_extraction:190 - ============================================================
+2026-05-22 14:17:16 | INFO     | __main__:run_musicbrainz_extraction:191 - INÍCIO DA EXTRAÇÃO - MUSICBRAINZ
+2026-05-22 14:17:16 | INFO     | __main__:run_musicbrainz_extraction:192 - ============================================================
+2026-05-22 14:17:16 | INFO     | __main__:run_musicbrainz_extraction:216 - A usar artistas de: data\raw\spotify_api\artists\user_top_artists_20260513_140342.json
+2026-05-22 14:17:16 | INFO     | __main__:run_musicbrainz_extraction:234 - Artistas únicos do Spotify: 67
+2026-05-22 14:17:16 | INFO     | __main__:extract_artists_from_musicbrainz:129 - A extrair 50 artistas da MusicBrainz...
+2026-05-22 14:17:48 | INFO     | __main__:extract_artists_from_musicbrainz:167 -   Progresso: 10/50 artistas
+2026-05-22 14:18:13 | INFO     | __main__:extract_artists_from_musicbrainz:167 -   Progresso: 20/50 artistas
+2026-05-22 14:18:38 | INFO     | __main__:extract_artists_from_musicbrainz:167 -   Progresso: 30/50 artistas
+2026-05-22 14:19:12 | INFO     | __main__:extract_artists_from_musicbrainz:167 -   Progresso: 40/50 artistas
+2026-05-22 14:20:02 | INFO     | __main__:extract_artists_from_musicbrainz:167 -   Progresso: 50/50 artistas
+2026-05-22 14:20:02 | SUCCESS  | __main__:extract_artists_from_musicbrainz:175 - MusicBrainz: 48 artistas encontrados | 2 não encontrados -> data\raw\musicbrainz\artists_musicbrainz_20260522_142002.json
+2026-05-22 14:20:02 | DEBUG    | __main__:extract_artists_from_musicbrainz:181 - Artistas não encontrados: ["El De Las R's", 'bapcat']
+2026-05-22 14:27:19 | INFO     | __main__:run_mpd_extraction:123 - ============================================================
+2026-05-22 14:27:19 | INFO     | __main__:run_mpd_extraction:124 - INÍCIO DA EXTRAÇÃO - SPOTIFY MPD (STREAMING)
+2026-05-22 14:27:19 | INFO     | __main__:run_mpd_extraction:125 - ============================================================
+2026-05-22 14:27:19 | INFO     | __main__:load_target_artists:29 - Ficheiro de referência carregado: 48 artistas alvo mapeados.
+2026-05-22 14:28:36 | INFO     | __main__:run_mpd_extraction:123 - ============================================================
+2026-05-22 14:28:36 | INFO     | __main__:run_mpd_extraction:124 - INÍCIO DA EXTRAÇÃO - SPOTIFY MPD (STREAMING)
+2026-05-22 14:28:36 | INFO     | __main__:run_mpd_extraction:125 - ============================================================
+2026-05-22 14:28:36 | INFO     | __main__:load_target_artists:29 - Ficheiro de referência carregado: 48 artistas alvo mapeados.
+2026-05-22 14:28:36 | INFO     | __main__:extract_filtered_mpd:49 - A abrir o arquivo MPD: spotify_million_playlist_dataset.zip...
+2026-05-22 14:28:36 | INFO     | __main__:extract_filtered_mpd:62 - Total de fatias (slices) detetadas no ZIP: 1000
+2026-05-22 14:28:38 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 10/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:40 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 20/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:41 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 30/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:43 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 40/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:45 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 50/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:46 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 60/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:48 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 70/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:50 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 80/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:52 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 90/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:53 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 100/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:55 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 110/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:57 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 120/1000 fatias do ZIP analisadas.
+2026-05-22 14:28:58 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 130/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:00 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 140/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:02 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 150/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:04 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 160/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:05 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 170/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:07 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 180/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:09 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 190/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:11 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 200/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:12 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 210/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:14 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 220/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:16 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 230/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:17 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 240/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:19 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 250/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:21 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 260/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:23 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 270/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:24 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 280/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:26 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 290/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:28 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 300/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:30 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 310/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:31 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 320/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:33 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 330/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:35 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 340/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:37 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 350/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:39 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 360/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:40 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 370/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:42 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 380/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:44 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 390/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:46 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 400/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:47 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 410/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:49 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 420/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:51 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 430/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:53 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 440/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:55 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 450/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:57 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 460/1000 fatias do ZIP analisadas.
+2026-05-22 14:29:58 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 470/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:00 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 480/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:02 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 490/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:04 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 500/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:06 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 510/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:08 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 520/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:09 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 530/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:11 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 540/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:13 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 550/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:15 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 560/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:17 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 570/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:19 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 580/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:22 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 590/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:24 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 600/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:27 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 610/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:30 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 620/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:32 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 630/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:35 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 640/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:37 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 650/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:39 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 660/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:41 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 670/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:43 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 680/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:45 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 690/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:46 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 700/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:48 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 710/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:50 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 720/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:52 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 730/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:53 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 740/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:55 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 750/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:57 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 760/1000 fatias do ZIP analisadas.
+2026-05-22 14:30:59 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 770/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:01 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 780/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:03 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 790/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:05 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 800/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:06 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 810/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:08 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 820/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:10 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 830/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:12 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 840/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:13 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 850/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:15 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 860/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:17 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 870/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:19 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 880/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:21 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 890/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:23 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 900/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:25 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 910/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:26 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 920/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:28 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 930/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:30 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 940/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:32 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 950/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:33 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 960/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:35 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 970/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:37 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 980/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:39 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 990/1000 fatias do ZIP analisadas.
+2026-05-22 14:31:41 | INFO     | __main__:extract_filtered_mpd:104 -   Progresso: 1000/1000 fatias do ZIP analisadas.
+2026-05-22 14:32:08 | SUCCESS  | __main__:extract_filtered_mpd:119 - Extração Concluída! 453833 playlists intersetadas -> data\raw\spotify_api\playlists\mpd_filtered_20260522_143141.json
+2026-05-22 14:39:21 | INFO     | __main__:run_staging_transformation:117 - ============================================================
+2026-05-22 14:39:21 | INFO     | __main__:run_staging_transformation:118 - INÍCIO DA TRANSFORMAÇÃO - CAMADA STAGING (SILVER)
+2026-05-22 14:39:21 | INFO     | __main__:run_staging_transformation:119 - ============================================================
+2026-05-22 14:39:21 | INFO     | __main__:transform_mpd_to_staging:39 - A carregar dados brutos do MPD: mpd_filtered_20260522_143141.json
+2026-05-22 14:39:41 | INFO     | __main__:transform_mpd_to_staging:70 - DataFrame inicial criado com 3324938 linhas (músicas em playlists).
+2026-05-22 14:39:45 | INFO     | __main__:transform_musicbrainz_to_staging:101 - A carregar metadados da MusicBrainz: artists_musicbrainz_20260522_142002.json
+2026-05-22 14:39:45 | INFO     | __main__:run_staging_transformation:132 - A executar o Merge (Join) entre as duas fontes de dados...
+2026-05-22 14:40:18 | SUCCESS  | __main__:run_staging_transformation:158 - Camada Staging concluída com sucesso! Ficheiro gerado com 3324938 linhas.
+2026-05-22 14:40:18 | SUCCESS  | __main__:run_staging_transformation:159 - Destino: data\staging\fact_playlists_tracks_staging_20260522_143947.csv
+2026-05-22 14:46:40 | INFO     | __main__:run_data_quality_checks:19 - ============================================================
+2026-05-22 14:46:40 | INFO     | __main__:run_data_quality_checks:20 - INÍCIO DA VALIDAÇÃO DE QUALIDADE DE DADOS
+2026-05-22 14:46:40 | INFO     | __main__:run_data_quality_checks:21 - ============================================================
+2026-05-22 14:46:40 | INFO     | __main__:run_data_quality_checks:35 - A auditar a qualidade de: fact_playlists_tracks_staging_20260522_143947.csv
+2026-05-22 14:46:55 | SUCCESS  | __main__:run_data_quality_checks:97 - Validação de qualidade terminada. Relatórios gerados em: data\metrics_quality
+2026-05-22 14:48:09 | INFO     | __main__:run_aggregations_generation:19 - ============================================================
+2026-05-22 14:48:09 | INFO     | __main__:run_aggregations_generation:20 - INÍCIO DA AGREGAÇÃO ANALÍTICA - CAMADA GOLD
+2026-05-22 14:48:09 | INFO     | __main__:run_aggregations_generation:21 - ============================================================
+2026-05-22 14:48:09 | INFO     | __main__:run_aggregations_generation:35 - A processar agregações analíticas a partir de: fact_playlists_tracks_staging_20260522_143947.csv
+2026-05-22 14:48:16 | INFO     | __main__:run_aggregations_generation:46 - A calcular popularidade e relevância dos artistas...
+2026-05-22 14:48:16 | INFO     | __main__:run_aggregations_generation:58 -   -> Tabela 'Popularidade Artistas' gerada: 26 linhas.
+2026-05-22 14:48:16 | INFO     | __main__:run_aggregations_generation:63 - A calcular distribuição geográfica dos artistas ouvidos...
+2026-05-22 14:48:16 | INFO     | __main__:run_aggregations_generation:71 -   -> Tabela 'Distribuição Geográfica' gerada: 7 linhas.
+2026-05-22 14:48:16 | INFO     | __main__:run_aggregations_generation:77 - A extrair e explodir chaves de géneros musicais (MusicBrainz)...
+2026-05-22 14:49:08 | SUCCESS  | __main__:run_aggregations_generation:102 - Camada GOLD de agregações gerada com sucesso em: data\gold
