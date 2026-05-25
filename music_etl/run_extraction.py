@@ -1,118 +1,56 @@
 """
-Script principal de extração — Semana 1.
+Script Principal de Orquestração do Pipeline de Extração (Semana 1).
 
-Uso:
-    python run_extraction.py                    # extrai tudo
-    python run_extraction.py --source spotify   # só Spotify API
-    python run_extraction.py --source mpd       # só MPD
-    python run_extraction.py --source mb        # só MusicBrainz
-
-    python run_extraction.py --source spotify --max-playlists 20
-    python run_extraction.py --source mpd --max-slices 5
-    python run_extraction.py --source mb --max-artists 50
+Utiliza a biblioteca Prefect para gerir o fluxo sequencial das tarefas
+de extração das três fontes de dados (Spotify API, MusicBrainz API e MPD).
 """
 
-import argparse
-import json
-import sys
-from datetime import datetime
-from pathlib import Path
-
+from prefect import flow, task
 from src.utils.logger import get_logger
+
+# Importar os runners de cada script de extração
+from src.extract.extract_spotify_api import run_spotify_extraction
+from src.extract.extract_musicbrainz import run_musicbrainz_extraction
+from src.extract.extract_mpd import run_mpd_extraction
 
 logger = get_logger("run_extraction")
 
 
-def parse_args():
-    parser = argparse.ArgumentParser(
-        description="Pipeline de extração — Music & Entertainment ETL"
-    )
-    parser.add_argument(
-        "--source",
-        choices=["spotify", "mpd", "mb", "all"],
-        default="all",
-        help="Fonte a extrair (default: all)",
-    )
-    parser.add_argument(
-        "--max-playlists",
-        type=int,
-        default=50,
-        help="Máx playlists a processar do Spotify (default: 50)",
-    )
-    parser.add_argument(
-        "--max-slices",
-        type=int,
-        default=10,
-        help="Máx slices do MPD a processar (default: 10 = 10.000 playlists)",
-    )
-    parser.add_argument(
-        "--max-artists",
-        type=int,
-        default=100,
-        help="Máx artistas a enriquecer com MusicBrainz (default: 100)",
-    )
-    return parser.parse_args()
+# Transformar as funções importadas em Tasks do Prefect para monitorização correta
+@task(name="Extrair_Spotify_API")
+def task_spotify():
+    return run_spotify_extraction()
+
+@task(name="Extrair_MusicBrainz_API")
+def task_musicbrainz():
+    return run_musicbrainz_extraction()
+
+@task(name="Extrair_Spotify_MPD")
+def task_mpd():
+    return run_mpd_extraction()
 
 
-def main():
-    args = parse_args()
-    start = datetime.now()
+@flow(name="Music_ETL_Extraction_Pipeline")
+def music_etl_flow():
+    logger.info("A iniciar o pipeline de extração de dados musicais...")
 
-    logger.info("=" * 60)
-    logger.info("MUSIC ETL — PIPELINE DE EXTRAÇÃO (SEMANA 1)")
-    logger.info(f"Fonte: {args.source.upper()}")
-    logger.info("=" * 60)
+    # 1. Extrair dados da API do Spotify (Gera a lista inicial de artistas e músicas do utilizador)
+    logger.info("Passo 1: A iniciar extração da API do Spotify...")
+    task_spotify()
 
-    results = {}
+    # 2. Extrair dados da API MusicBrainz
+    # Vai buscar os géneros e países e valida os IDs (MBIDs) para servirem de filtro
+    logger.info("Passo 2: A iniciar extração da API MusicBrainz...")
+    task_musicbrainz()
 
-    # -------------------------------------------------------
-    # Spotify Web API
-    # -------------------------------------------------------
-    if args.source in ("spotify", "all"):
-        try:
-            from src.extract.extract_spotify_api import run_spotify_extraction
-            results["spotify"] = run_spotify_extraction(
-                max_playlists=args.max_playlists
-            )
-        except EnvironmentError as e:
-            logger.error(f"Spotify: {e}")
-            logger.warning("Skipping Spotify extraction — configura o .env primeiro.")
-            results["spotify"] = {"error": str(e)}
+    # 3. Extrair dados do Spotify MPD
+    # Filtra o ZIP gigante com base nos artistas validados no passo anterior
+    logger.info("Passo 3: A iniciar extração do Spotify MPD (Streaming do ZIP)...")
+    task_mpd()
 
-    # -------------------------------------------------------
-    # MPD Dataset
-    # -------------------------------------------------------
-    if args.source in ("mpd", "all"):
-        from src.extract.extract_mpd import run_mpd_extraction
-        results["mpd"] = run_mpd_extraction(max_slices=args.max_slices)
-
-    # -------------------------------------------------------
-    # MusicBrainz
-    # -------------------------------------------------------
-    if args.source in ("mb", "all"):
-        from src.extract.extract_musicbrainz import run_musicbrainz_extraction
-        results["musicbrainz"] = run_musicbrainz_extraction(
-            max_artists=args.max_artists
-        )
-
-    # -------------------------------------------------------
-    # Resumo final
-    # -------------------------------------------------------
-    elapsed = (datetime.now() - start).total_seconds()
-    results["total_duration_seconds"] = round(elapsed, 1)
-    results["run_at"] = start.isoformat()
-
-    summary_path = Path("data/raw/full_extraction_summary.json")
-    summary_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(summary_path, "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=2, default=str)
-
-    logger.info("=" * 60)
-    logger.success(f"EXTRAÇÃO COMPLETA em {elapsed:.1f}s — {summary_path}")
-    logger.info("=" * 60)
-
-    return results
+    logger.info("Pipeline de extração concluído com sucesso!")
 
 
 if __name__ == "__main__":
-    main()
+    # Executa o fluxo sequencial reproduzível do Prefect
+    music_etl_flow()
