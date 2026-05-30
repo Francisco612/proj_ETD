@@ -23,27 +23,11 @@ def get_latest_file(directory: Path, pattern: str) -> Path:
     return files[-1]
 
 
-def create_tables(conn):
-    """Define o esquema físico (DDL) das tabelas relacionais e analíticas."""
-    logger.info("A criar a estrutura das tabelas no DuckDB...")
+def create_gold_tables(conn):
+    """Define o esquema físico (DDL) das tabelas agregadas Gold."""
+    logger.info("A criar a estrutura das tabelas Gold adicionais no DuckDB...")
 
-    # 1. Tabela de Factos Central (Silver detalhada)
-    conn.execute("""
-        CREATE OR REPLACE TABLE fact_playlists_tracks (
-            playlist_id INTEGER,
-            playlist_name VARCHAR,
-            playlist_followers INTEGER,
-            track_pos INTEGER,
-            track_name VARCHAR,
-            track_uri VARCHAR,
-            artist_name VARCHAR,
-            artist_uri VARCHAR,
-            album_name VARCHAR,
-            track_duration_min DOUBLE
-        );
-    """)
-
-    # 2. Tabela Gold: Popularidade e Alcance de Artistas
+    # 1. Tabela Gold: Popularidade e Alcance de Artistas
     conn.execute("""
         CREATE OR REPLACE TABLE gold_artist_popularity (
             artist_name VARCHAR PRIMARY KEY,
@@ -53,7 +37,7 @@ def create_tables(conn):
         );
     """)
 
-    # 3. Tabela Gold: Ranking de Géneros
+    # 2. Tabela Gold: Ranking de Géneros
     conn.execute("""
         CREATE OR REPLACE TABLE gold_genre_ranking (
             mb_genres VARCHAR,
@@ -61,7 +45,7 @@ def create_tables(conn):
         );
     """)
 
-    # 4. Tabela Gold: Distribuição Geográfica por País
+    # 3. Tabela Gold: Distribuição Geográfica por País
     conn.execute("""
         CREATE OR REPLACE TABLE gold_country_distribution (
             mb_country VARCHAR,
@@ -69,18 +53,30 @@ def create_tables(conn):
             seguidores_impactados INTEGER
         );
     """)
-    logger.info("Estrutura DDL definida com sucesso.")
+    logger.info("Estrutura DDL das tabelas Gold definida.")
 
 
 def load_csv_to_duckdb(conn, file_path: Path, table_name: str):
-    """Carrega um ficheiro CSV diretamente para uma tabela DuckDB de forma performante."""
+    """Carrega o CSV criando a tabela de factos automaticamente ou inserindo nas tabelas Gold."""
     logger.info(f"A carregar {file_path.name} para a tabela '{table_name}'...")
-    # O DuckDB possui um leitor nativo de CSV extremamente veloz
-    conn.execute(f"""
-        INSERT INTO {table_name} 
-        SELECT * FROM read_csv_auto('{str(file_path)}', header=True)
-    """)
 
+    if table_name == "fact_playlists_tracks":
+        # Forçamos as colunas de datas da MusicBrainz a serem lidas como VARCHAR
+        # para acomodar anos isolados (ex: '1969') e evitar erros de conversão.
+        conn.execute(f"""
+            CREATE OR REPLACE TABLE fact_playlists_tracks AS 
+            SELECT * FROM read_csv_auto(
+                '{str(file_path)}', 
+                header=True, 
+                types={{'mb_begin_date': 'VARCHAR', 'mb_end_date': 'VARCHAR'}}
+            )
+        """)
+    else:
+        # Insere os dados nas tabelas Gold pré-criadas
+        conn.execute(f"""
+            INSERT INTO {table_name} 
+            SELECT * FROM read_csv_auto('{str(file_path)}', header=True)
+        """)
 
 def run_post_load_checks(conn, expected_silver_rows: int):
     """Executa validações de qualidade e integridade de dados pós-carga via SQL."""
@@ -100,8 +96,7 @@ def run_post_load_checks(conn, expected_silver_rows: int):
     total_artists = conn.execute("SELECT COUNT(*) FROM gold_artist_popularity").fetchone()[0]
     logger.success(f"[PASS] Dimensão Artistas validada com {total_artists} registos analíticos.")
 
-    # Teste 3: Integridade Referencial Simulada
-    # Garante que os artistas do ranking Gold existem de facto na tabela de Factos
+    # Teste 3: Integridade Referencial Simples
     orphans = conn.execute("""
         SELECT COUNT(g.artist_name)
         FROM gold_artist_popularity g
@@ -120,32 +115,29 @@ def run_load_pipeline():
     start_time = datetime.now()
     config = load_config()
 
-    # Mapeamento de Diretorias
     staging_dir = Path(config["paths"].get("staging_data", "data/staging"))
     gold_dir = Path("data/gold")
-
-    # Configurar destino da base de dados física (.db)
     db_file_path = gold_dir / "music_analytics.db"
 
     logger.info("A localizar os ficheiros mais recentes para o carregamento...")
     try:
-        # 1. Identificar ficheiros mais recentes gerados pelas transformações
+        # 1. Identificar ficheiros mais recentes
         file_silver = get_latest_file(staging_dir, "fact_playlists_tracks_staging_*.csv")
         file_gold_artists = get_latest_file(gold_dir, "dim_artist_popularity_gold_*.csv")
         file_gold_genres = get_latest_file(gold_dir, "dim_genre_ranking_gold_*.csv")
         file_gold_countries = get_latest_file(gold_dir, "dim_country_distribution_gold_*.csv")
 
-        # Contar linhas do CSV Silver para validação futura (usando encoding seguro)
+        # Contar linhas do CSV Silver para validação
         with open(file_silver, "r", encoding="utf-8") as f:
-            expected_silver_rows = sum(1 for _ in f) - 1  # Descontar o cabeçalho
+            expected_silver_rows = sum(1 for _ in f) - 1
 
-        # 2. Conectar ao DuckDB (cria o ficheiro se não existir)
+        # 2. Conectar ao DuckDB
         conn = duckdb.connect(str(db_file_path))
 
-        # 3. Criar as tabelas
-        create_tables(conn)
+        # 3. Criar as estruturas de tabelas Gold
+        create_gold_tables(conn)
 
-        # 4. Executar cargas em massa (Bulk Load)
+        # 4. Executar cargas diretas
         load_csv_to_duckdb(conn, file_silver, "fact_playlists_tracks")
         load_csv_to_duckdb(conn, file_gold_artists, "gold_artist_popularity")
         load_csv_to_duckdb(conn, file_gold_genres, "gold_genre_ranking")

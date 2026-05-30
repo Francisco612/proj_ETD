@@ -1,0 +1,60 @@
+2026-05-30 14:21:32 | INFO     | __main__:run_load_pipeline:130 - A localizar os ficheiros mais recentes para o carregamento...
+2026-05-30 14:21:34 | INFO     | __main__:create_tables:28 - A criar a estrutura das tabelas no DuckDB...
+2026-05-30 14:21:34 | INFO     | __main__:create_tables:72 - Estrutura DDL definida com sucesso.
+2026-05-30 14:21:34 | INFO     | __main__:load_csv_to_duckdb:77 - A carregar fact_playlists_tracks_staging_20260522_143947.csv para a tabela 'fact_playlists_tracks'...
+2026-05-30 14:21:34 | CRITICAL | __main__:run_load_pipeline:162 - Falha crítica no pipeline de carregamento para a base de dados: Binder Error: table fact_playlists_tracks has 10 columns but 20 values were supplied
+2026-05-30 14:22:57 | INFO     | __main__:run_load_pipeline:133 - A localizar os ficheiros mais recentes para o carregamento...
+2026-05-30 14:22:59 | INFO     | __main__:create_tables:28 - A criar a estrutura das tabelas Gold adicionais no DuckDB...
+2026-05-30 14:22:59 | INFO     | __main__:create_tables:56 - Estrutura DDL das tabelas Gold definida.
+2026-05-30 14:22:59 | INFO     | __main__:load_csv_to_duckdb:80 - A carregar fact_playlists_tracks_staging_20260522_143947.csv para a tabela 'fact_playlists_tracks'...
+2026-05-30 14:22:59 | CRITICAL | __main__:run_load_pipeline:165 - Falha crítica no pipeline de carregamento para a base de dados: Catalog Error: Table with name fact_playlists_tracks does not exist!
+Did you mean "pg_class"?
+2026-05-30 14:23:48 | INFO     | __main__:run_load_pipeline:118 - A localizar os ficheiros mais recentes para o carregamento...
+2026-05-30 14:23:51 | INFO     | __main__:create_gold_tables:28 - A criar a estrutura das tabelas Gold adicionais no DuckDB...
+2026-05-30 14:23:51 | INFO     | __main__:create_gold_tables:56 - Estrutura DDL das tabelas Gold definida.
+2026-05-30 14:23:51 | INFO     | __main__:load_csv_to_duckdb:61 - A carregar fact_playlists_tracks_staging_20260522_143947.csv para a tabela 'fact_playlists_tracks'...
+2026-05-30 14:23:52 | CRITICAL | __main__:run_load_pipeline:150 - Falha crítica no pipeline de carregamento para a base de dados: Conversion Error: CSV Error on Line: 490831
+Original Line: 
+728246,EDM 2017,1,74,I Wish You Were Here,spotify:track:4j4VgpGDhu9fi8z0rIdt8K,Papillon,spotify:artist:24CL5ktdCtKU8E2Yt34el5,I Wish You Were Here,3.41,43455f71-b664-47d8-a272-6a1448aff18f,Papillon,Person,CA,Canada,1969,,[],[],2026-05-22 14:18:18.298674
+Error when converting column "mb_begin_date". Could not convert string "1969" to 'DATE'
+
+Column mb_begin_date is being converted as type DATE
+This type was auto-detected from the CSV file.
+Possible solutions:
+* Override the type for this column manually by setting the type explicitly, e.g., types={'mb_begin_date': 'VARCHAR'}
+* Set the sample size to a larger value to enable the auto-detection to scan more values, e.g., sample_size=-1
+* Use a COPY statement to automatically derive types from an existing table.
+* Check whether the null string value is set correctly (e.g., nullstr = 'N/A')
+
+  file = data\staging\fact_playlists_tracks_staging_20260522_143947.csv
+  delimiter = , (Auto-Detected)
+  quote = " (Auto-Detected)
+  escape = " (Auto-Detected)
+  new_line = \r\n (Auto-Detected)
+  header = true (Set By User)
+  skip_rows = 0 (Auto-Detected)
+  comment = (empty) (Auto-Detected)
+  strict_mode = true (Auto-Detected)
+  date_format =  (Auto-Detected)
+  timestamp_format =  (Auto-Detected)
+  null_padding = 0
+  sample_size = 20480
+  ignore_errors = false
+  all_varchar = 0
+
+
+2026-05-30 14:24:53 | INFO     | __main__:run_load_pipeline:122 - A localizar os ficheiros mais recentes para o carregamento...
+2026-05-30 14:24:56 | INFO     | __main__:create_gold_tables:28 - A criar a estrutura das tabelas Gold adicionais no DuckDB...
+2026-05-30 14:24:56 | INFO     | __main__:create_gold_tables:56 - Estrutura DDL das tabelas Gold definida.
+2026-05-30 14:24:56 | INFO     | __main__:load_csv_to_duckdb:61 - A carregar fact_playlists_tracks_staging_20260522_143947.csv para a tabela 'fact_playlists_tracks'...
+2026-05-30 14:25:00 | INFO     | __main__:load_csv_to_duckdb:61 - A carregar dim_artist_popularity_gold_20260522_144816.csv para a tabela 'gold_artist_popularity'...
+2026-05-30 14:25:00 | INFO     | __main__:load_csv_to_duckdb:61 - A carregar dim_genre_ranking_gold_20260522_144816.csv para a tabela 'gold_genre_ranking'...
+2026-05-30 14:25:00 | INFO     | __main__:load_csv_to_duckdb:61 - A carregar dim_country_distribution_gold_20260522_144816.csv para a tabela 'gold_country_distribution'...
+2026-05-30 14:25:00 | INFO     | __main__:run_post_load_checks:83 - ============================================================
+2026-05-30 14:25:00 | INFO     | __main__:run_post_load_checks:84 - INÍCIO DA VALIDAÇÃO DE QUALIDADE PÓS-CARGA (SQL)
+2026-05-30 14:25:00 | INFO     | __main__:run_post_load_checks:85 - ============================================================
+2026-05-30 14:25:00 | SUCCESS  | __main__:run_post_load_checks:90 - [PASS] Integridade de Carga: 3324938 de 3324938 linhas inseridas com sucesso.
+2026-05-30 14:25:00 | SUCCESS  | __main__:run_post_load_checks:97 - [PASS] Dimensão Artistas validada com 26 registos analíticos.
+2026-05-30 14:25:00 | SUCCESS  | __main__:run_post_load_checks:109 - [PASS] Integridade Referencial: 100% de coesão entre Factos e Agregações.
+2026-05-30 14:25:00 | SUCCESS  | __main__:run_load_pipeline:150 - Fase de Carregamento (LOAD) concluída com distinção em 7.25s!
+2026-05-30 14:25:00 | INFO     | __main__:run_load_pipeline:151 - Base de Dados guardada e trancada em: data\gold\music_analytics.db
