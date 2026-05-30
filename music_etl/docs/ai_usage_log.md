@@ -9,7 +9,7 @@
 
 ### Entrada 1 — Estrutura inicial do projeto
 
-**Data:** [18/05/2026]
+**Data:** 15 de Maio de 2026
 **Ferramenta:** Claude (Anthropic)
 
 **Intenção / Objetivo:**
@@ -27,7 +27,8 @@ scripts de extração para Spotify API, MPD e MusicBrainz.
 **Critérios de aceitação:**
 - `python run_extraction.py` corre sem erros
 - Dados são guardados em data/raw/ com timestamp
-- Logs são criados em logs/\n- `pytest tests/` passa
+- Logs são criados em logs/
+- `pytest tests/` passa
 
 **Output da IA:**
 Estrutura completa de ficheiros com src/extract/, src/utils/, orchestration/, tests/
@@ -58,7 +59,7 @@ Desenvolver os módulos de transformação de dados usando a biblioteca Pandas. 
 
 **Requisitos definidos antes da geração:**
 - Código modular e em scripts Python puros (`.py`), rejeitando arquiteturas monolíticas.
-- Processamento performante e em memória controlada (streaming/chunks) para lidar com mais de 3 milhões de linhas.
+- Processamento performante e em memória controlada para lidar com mais de 3 milhões de linhas.
 - Cumprimento de regras de Data Quality (remoção de duplicados, tratamento de nulos e filtragem de outliers).
 - Produção de um relatório de qualidade de dados (`.md` e `.json`) autónomo para auditoria técnica.
 - Separação clara dos dados em camadas (Silver/Staging e Gold/Curated).
@@ -82,6 +83,41 @@ Aceite a lógica de herança e enriquecimento de dados via Left Join. Foram vali
 
 **Impacto no projeto:**
 Conclusão total dos objetivos da Semana 2. Os dados de maior volume foram domados e as tabelas finais da Camada Gold ocupam agora escassos kilobytes, estando perfeitamente otimizadas para a fase de carregamento em base de dados e visualização gráfica.
+
+---
+
+## Semana 3 — Carregamento (Load)
+
+### Entrada 3 — Modelação e Carregamento para Base de Dados Analítica DuckDB
+
+**Data:** 30 de Maio de 2026
+**Ferramenta:** Gemini (Google)
+
+**Intenção / Objetivo:**
+Desenhar o esquema relacional final (Star Schema), criar as tabelas analíticas com tipos de dados explícitos e automatizar a carga em massa (Bulk Load) da Camada Silver e Camada Gold para dentro de um motor de armazenamento local DuckDB.
+
+**Requisitos definidos antes da geração:**
+- Escolha justificada de um motor de armazenamento OLAP colunar para alta performance local.
+- Criação física das tabelas via SQL/DDL dinâmico e tratamento de tipos de dados complexos.
+- Implementação de um módulo de integridade pós-carga com queries SQL de validação.
+- Orquestração sem dependência de persistência volátil (RAM).
+
+**Critérios de aceitação:**
+- Criação física do ficheiro local `data/gold/music_analytics.db`.
+- Carregamento bem-sucedido de 3.324.938 linhas sem truncagem de schemas.
+- Validação pós-carga com 100% de coesão referencial (`PASS`) impressa nos logs.
+
+**Output da IA:**
+Script modular `load_to_db.py` com integração nativa do leitor analítico do DuckDB (`read_csv_auto`), parametrização explícita de tipos varchar e rotinas SQL de contagem.
+
+**Validação humana:**
+- [x] Script integrado e executado com sucesso em 7.25 segundos.
+- [x] Ligação estabelecida e validada visualmente na aba Database do PyCharm Professional.
+- [x] Tratamento crítico do erro de conversão de tipos resolvido (forçada a leitura de `mb_begin_date` e `mb_end_date` como `VARCHAR` para suportar anos isolados como '1969' sem quebrar o pipeline).
+- [x] Verificação bem-sucedida das constraints de Chaves Primárias e integridade referencial.
+
+**Impacto no projeto:**
+A Semana 3 está totalmente concluída. O pipeline saiu do ciclo de ficheiros planos soltos e passou para uma base de dados analítica relacional trancada, otimizada e pronta para alimentar de forma instantânea as consultas do Dashboard.
 
 ---
 
