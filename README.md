@@ -29,8 +29,6 @@ music_etl/
 ├── logs/                      # Logs de execução (não versionados)
 ├── orchestration/
 │   └── pipeline_week1.py      # Flow Prefect — Semana 1
-├── api.py                     # Backend REST API com FastAPI & Swagger (Semana 4)
-├── app.py                     # Frontend Dashboard Interativo com Streamlit (Semana 4)
 ├── src/
 │   ├── extract/
 │   │   ├── spotify_auth.py
@@ -50,6 +48,8 @@ music_etl/
 │   └── test_week1_extraction.py
 ├── .env.example
 ├── .gitignore
+├── api.py                     # Backend REST API com FastAPI & Swagger (Semana 4)
+├── app.py                     # Frontend Dashboard Interativo com Streamlit (Semana 4)
 ├── requirements.txt
 └── run_extraction.py          # Script principal de extração
 ```
