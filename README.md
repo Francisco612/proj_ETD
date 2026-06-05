@@ -29,6 +29,8 @@ music_etl/
 ├── logs/                      # Logs de execução (não versionados)
 ├── orchestration/
 │   └── pipeline_week1.py      # Flow Prefect — Semana 1
+├── api.py                     # Backend REST API com FastAPI & Swagger (Semana 4)
+├── app.py                     # Frontend Dashboard Interativo com Streamlit (Semana 4)
 ├── src/
 │   ├── extract/
 │   │   ├── spotify_auth.py
@@ -64,8 +66,8 @@ music_etl/
 ### Instalação de Dependências
 ```bash
 pip install -r requirements.txt
-# Garanta que possui as bibliotecas do ecossistema de transformação e carga instaladas:
-pip install pandas duckdb
+# Garanta que possui as bibliotecas da API e do ecossistema visual instaladas:
+pip install pandas duckdb fastapi uvicorn streamlit plotly requests
 ```
 
 ---
@@ -96,19 +98,32 @@ python -m src.transform.transform_aggregations
 python -m src.load.load_to_db
 ```
 
+### Semana 4 — Visualização (Visualization & API)
+Como o projeto adota uma arquitetura desacoplada de microsserviços, deve iniciar o backend e o frontend em terminais separados:
+
+```bash
+# Terminal 1: Iniciar o servidor Backend (FastAPI + Swagger)
+uvicorn api:app --reload
+
+# Terminal 2: Iniciar a interface do Dashboard (Streamlit)
+streamlit run app.py
+```
+
 ---
 
-## Perguntas Analíticas (Respondidas na Camada Gold)
+## Perguntas Analíticas (Respondidas na Camada Gold & Dashboard)
 
 **Como atributos de áudio (danceability, energy, valence) se relacionam com popularidade?**
+> Status: Tratado de forma macro através da concentração de recorrência e retenção de audiência. O pipeline demonstra um efeito *Winner-Take-All*, onde super-estrelas como Drake monopolizam as playlists.
 
 **Existem perfis de playlists com "assinaturas sonoras" distintas?**
+> Status: Analisado no painel de dispersão. A alta recorrência de hits dominantes indica uma forte homogeneidade na curadoria humana, criando assinaturas partilhadas em vez de nichos isolados.
 
 **Que padrões temporais ou de género musical explicam a aceitação do público?**
-> Status: Respondido na tabela `dim_genre_ranking_gold_*.csv`, indicando o domínio absoluto do Hip Hop, Pop e Trap.
+> Status: Respondido na tabela `gold_genre_ranking` e validado graficamente. Os géneros urbanos dominam o mercado, liderados pelo Hip Hop (2.08M aparições), Pop (2.06M) e Trap (1.78M).
 
 **Há diferenças entre mercados (PT vs US vs GB) nas playlists em destaque?**
-> Status: Mapeado na tabela `dim_country_distribution_gold_*.csv`, revelando a dominância de consumo concentrada nos eixos US e CA.
+> Status: Mapeado na tabela `gold_country_distribution` e traduzido por extenso. Revela um afunilamento massivo do consumo centrado no eixo norte-americano (Estados Unidos e Canadá), controlando mais de 80% do tráfego.
 
 ---
 
@@ -124,10 +139,9 @@ python -m src.load.load_to_db
 
 ---
 
-
 ## Modelação de Dados: Modelo Dimensional (Star Schema)
 
-A arquitetura de armazenamento adota uma estratégia **Híbrida/Dimensional** no **DuckDB**. O microdado granular de interações está mapeado na tabela de factos central, enquanto os sumários estatísticos estão instanciados em tabelas Gold de alta performance indexadas para o Dashboard.
+A arquitetura de armazenamento adota uma estratégia **Híbrida/Dimensional** no **DuckDB**. O microdado granular de interações está mapeado na tabela de factos central, enquanto os sumários estatísticos estão instanciados em tabelas Gold de alta performance indexadas e expostas por endpoints HTTP.
 
 ### Diagrama Entidade-Relação (ERD Textual)
 
@@ -156,6 +170,7 @@ A arquitetura de armazenamento adota uma estratégia **Híbrida/Dimensional** no
 ### Decisões de Performance e Armazenamento
 * **DuckDB (OLAP):** Escolha fundamentada na sua arquitetura de armazenamento colunar, permitindo a vetorização de queries e varrimento de milhões de linhas em milissegundos.
 * **Tipagem Robusta:** As colunas temporais da MusicBrainz (`mb_begin_date` e `mb_end_date`) foram forçadas explicitamente como `VARCHAR` para acomodar anos de fundação truncados (ex: `"1969"`) sem induzir falhas de conversão no motor de dados.
+* **Desacoplamento por API (FastAPI):** A camada física está isolada do cliente visual. Os dados chegam ao painel em formato JSON através de endpoints documentados nativamente via Swagger UI (`/docs`).
 
 ---
 
@@ -180,4 +195,4 @@ Toda a atividade, engenharia de prompts, validações críticas e decisões huma
 | **Semana 1** | Extração (Extract) | 100% Concluído | Ficheiros RAW (Bronze), Autenticação API, Integração Prefect |
 | **Semana 2** | Transformação (Transform) | 100% Concluído | Camada Silver (3.3M linhas), Camada Gold (Agregações), Relatório DQ |
 | **Semana 3** | Carregamento (Load) | 100% Concluído | Esquema Estrela DuckDB, Script `load_to_db.py`, Validação SQL |
-| **Semana 4** | Visualização (Visualization) | Em espera | Dashboard Analítico e Storytelling dos Dados |
+| **Semana 4** | Visualização (Visualization) | 100% Concluído | FastAPI Backend, Swagger UI, Dashboard Streamlit (Storytelling) |

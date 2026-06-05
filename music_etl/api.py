@@ -2,7 +2,7 @@
 Módulo de API REST (Semana 4) — Servidor Backend com Swagger Automático.
 
 Expõe os dados analíticos do DuckDB através de endpoints HTTP seguros,
-gerando a documentação interativa OpenAPI (Swagger).
+gerando a documentação interativa OpenAPI (Swagger) com nomes de países por extenso.
 """
 
 from fastapi import FastAPI, Query, HTTPException
@@ -60,10 +60,16 @@ def get_macro_kpis():
     }
 
 
+@app.get("/api/v1/genres/top10", tags=["Géneros"])
+def get_top_genres():
+    """Retorna o ranking os 10 géneros mais frequentes nas playlists."""
+    sql = "SELECT * FROM gold_genre_ranking ORDER BY frequencia_nas_playlists DESC LIMIT 10;"
+    return query_db(sql)
+
+
 @app.get("/api/v1/countries/distribution", tags=["Geografia"])
 def get_country_distribution():
     """Retorna a volumetria de consumo mapeada com os nomes por extenso dos países."""
-    # Usamos um CASE WHEN para converter as siglas ISO para os nomes completos legíveis
     sql = """
         SELECT 
             CASE mb_country
@@ -81,13 +87,6 @@ def get_country_distribution():
         WHERE mb_country != 'Unknown' 
         ORDER BY total_faixas_ouvidas DESC;
     """
-    return query_db(sql)
-
-
-@app.get("/api/v1/countries/distribution", tags=["Geografia"])
-def get_country_distribution():
-    """Retorna a volumetria de consumo mapeada por país de origem do artista."""
-    sql = "SELECT * FROM gold_country_distribution WHERE mb_country != 'Unknown' ORDER BY total_faixas_ouvidas DESC;"
     return query_db(sql)
 
 
@@ -135,7 +134,6 @@ def get_countries_list():
 @app.get("/api/v1/fact/sample", tags=["Microdados"])
 def get_fact_sample(artista: str = "Todos", pais: str = "Todos", limit: int = 100):
     """Retorna uma amostra de linhas da tabela de factos adaptando os filtros de nomes por extenso."""
-    # Fazemos a tradução inversa no WHERE para o filtro do ecrã bater certo com as siglas do DuckDB
     sql = """
         SELECT 
             playlist_name, 
@@ -157,14 +155,12 @@ def get_fact_sample(artista: str = "Todos", pais: str = "Todos", limit: int = 10
     conditions = []
     params = []
 
-    if list(conditions): pass  # Apenas salvaguarda de sintaxe externa
-
     if artista != "Todos":
         conditions.append("artist_name = ?")
         params.append(artista)
 
     if pais != "Todos":
-        # Mapeamento reverso para a query saber o que procurar na tabela original
+        # Mapeamento reverso para traduzir a seleção do ecrã para as siglas reais da DB
         mapeamento_reverso = {
             'Estados Unidos': 'US', 'Canadá': 'CA', 'Reino Unido': 'GB',
             'Jamaica': 'JM', 'Porto Rico': 'PR', 'Portugal': 'PT'

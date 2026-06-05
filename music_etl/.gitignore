@@ -29,3 +29,27 @@ data/metrics_quality/*
 
 # Excepção: ficheiros de amostra pequenos para testes
 !data/raw/sample/
+
+# =============================================================
+# Base de Dados Relacional (DuckDB)
+# =============================================================
+# Bloqueia o ficheiro físico binário da base de dados local e os seus locks
+*.db
+*.db.wal
+
+# =============================================================
+# Ficheiros Temporários do Ecossistema Python / IDEs
+# =============================================================
+# Ignora a cache de compilação do Python gerada pela API e Dashboard
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignora pastas de ambiente virtual comuns (caso mudes de máquina)
+.venv/
+venv/
+ENV/
+
+# Ignora ficheiros de configuração do PyCharm (.idea)
+.idea/
+.vscode/
